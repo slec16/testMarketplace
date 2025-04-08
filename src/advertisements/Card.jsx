@@ -4,6 +4,8 @@ import {
   useLocation,
 } from 'react-router';
 import HideImageIcon from '@mui/icons-material/HideImage';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const Card = (props) => {
 
@@ -49,8 +51,14 @@ const Card = (props) => {
                 </div>
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-row">
-                        <p className="mr-3">👁 { views }</p>
-                        <p className="">🖒 { likes }</p>
+                        <div className="mr-5 flex items-center">
+                            <VisibilityIcon className='mr-1' />
+                            { views }
+                        </div>
+                        <div className="flex items-center">
+                            <ThumbUpIcon className='mr-1' />
+                            { likes }
+                        </div>
                     </div>
                     <h3 className="text-xl font-medium text-gray-500">{ price }₽</h3>
                 </div>

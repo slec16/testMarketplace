@@ -5,6 +5,7 @@ import {
   useParams 
 } from 'react-router';
 import React, { useState, useEffect, useContext } from 'react';
+import HideImageIcon from '@mui/icons-material/HideImage';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
@@ -17,6 +18,7 @@ const AdvertisementPage = () => {
         fetch(`http://localhost:3000/advertisements/${id}`).then(res => {
           return res.json()
         }).then(result => {
+            console.log(result)
             setProduct(result)
         })
       },[])
@@ -26,9 +28,18 @@ const AdvertisementPage = () => {
         <div 
             className="rounded-md flex flex-row p-3 "
         >
-            <div>
-                <img src={product.imageUrl} className="w-30 h-40 rounded-md"/>
-            </div>
+            { !product.imageUrl ? 
+                <div className='flex w-48 h-32 border border-blue-200 rounded-lg items-center justify-center'>
+                    <HideImageIcon 
+                        fontSize='large'
+                        color='primary'
+                    />
+                </div>
+                :
+                <div className="w-48 h-32 rounded-lg overflow-hidden">          
+                    <img src={product.imageUrl} alt="Your Image" className="object-contain" />
+                </div>
+            }
             <div className="flex flex-col px-3 justify-between w-full">
                 <div>
                     <h1

@@ -60,9 +60,7 @@ const Advertisements = () => {
   useEffect(() => {
     
     if( advertisements.length > 0 ) {
-      console.log(advertisements)
       let test = advertisements.filter(el => el.name.toLowerCase().includes(searchInput.value))
-      console.log(test)
       setFiltered(test)
     }
   }, [searchInput.value, advertisements])
