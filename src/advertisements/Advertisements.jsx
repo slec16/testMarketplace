@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import List from "./List"
-import Pagination from '@mui/material/Pagination';
 import TablePagination from '@mui/material/TablePagination';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import * as locales from '@mui/material/locale';
 import { Input } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import Modal from '@mui/material/Modal';
+import IconButton from '@mui/material/IconButton';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import InputAdornment from '@mui/material/InputAdornment';
 import useInput from '../hooks/useInput';
+import CreateAdvertisement from './modalCreateAdvertisement'
+import Tooltip from '@mui/material/Tooltip';
 
 
 const Advertisements = () => {
@@ -27,9 +31,10 @@ const Advertisements = () => {
   );
 
   const searchInput = useInput()
-
   
-
+  const [open, setOpen] = useState(false);
+  const openModal = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect( () => {
     fetch('http://localhost:3000/advertisements').then(res => {
@@ -90,8 +95,19 @@ const Advertisements = () => {
               </InputAdornment>
             }
           />
+          <Tooltip title="Новое объявление">
+            <IconButton onClick={openModal}>
+              <AddCircleOutlineIcon color='primary' className="" fontSize='large' />
+            </IconButton>
+          </Tooltip>
+          <Modal
+            open={open}
+            onClose={handleClose}
+          >
+            <CreateAdvertisement />
+          </Modal>
           <TablePagination
-            className='w-1/2'
+            className='w-1/3'
             component="div"
             count={allOfAdvertisement}
             page={page}

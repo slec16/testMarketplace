@@ -15,7 +15,7 @@ function App() {
 
 
     return (
-        <>
+        <div>
             <Wrapper>
 
                 <Header></Header>
@@ -29,7 +29,7 @@ function App() {
 
             </Wrapper>
 
-        </>
+        </div>
     )
 }
 

@@ -45,18 +45,18 @@ const Card = (props) => {
                 <div className="flex flex-col px-3 justify-between w-full">
                 <div>
                     <h1
-                        className="text-2xl font-bold mb-2"
+                        className="text-2xl text-slate-700 font-bold mb-2"
                     >{ name }</h1>
                     <p>{ expandText( description ) }</p>
                 </div>
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-row">
                         <div className="mr-5 flex items-center">
-                            <VisibilityIcon className='mr-1' />
+                            <VisibilityIcon color="info" className='mr-1 opacity-50' />
                             { views }
                         </div>
                         <div className="flex items-center">
-                            <ThumbUpIcon className='mr-1' />
+                            <ThumbUpIcon color="info" className='mr-1 opacity-50' />
                             { likes }
                         </div>
                     </div>
