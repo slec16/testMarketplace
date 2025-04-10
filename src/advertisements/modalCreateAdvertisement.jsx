@@ -6,10 +6,18 @@ import LinkIcon from '@mui/icons-material/Link';
 import useInput from '../hooks/useInput';
 import DescriptionIcon from '@mui/icons-material/Description';
 import TitleIcon from '@mui/icons-material/Title';
-//========== Добавить валидацию ========//
+
+//==================//
 /* 
+
     Добавить тост при успешном добавлении
     закрывать окно после создания
+    закрывать онкно на esc (разобраться почему не работвает) 
+    добавить валидацию
+    поменять инпут для описания
+
+    !!!!бля цены строками сохранились
+
 */
 const CreateAdvertisement = () => {
 

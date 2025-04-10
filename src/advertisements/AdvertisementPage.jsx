@@ -9,6 +9,14 @@ import HideImageIcon from '@mui/icons-material/HideImage';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
+
+/*
+    При переходе с роута объявы обранто в список сохранять в локал сторадже
+    параметры поиска
+
+
+*/
+
 const AdvertisementPage = () => {
 
     const [product, setProduct] = useState({})
