@@ -29,9 +29,10 @@ const Advertisements = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
   // !!!!!!!!!
-  const [typeOfList, setTypeOfList] = useState(0)
+  const [displayList, setDisplayList] = useState([])
 
-  
+  const [sortedAdv, setSortedAdv] = useState([])
+
 
   const theme = useTheme();
 
@@ -90,7 +91,6 @@ const Advertisements = () => {
       return res.json()
     }).then(result => {
       setAdvertisements(result)
-      setBuffAdv(result)
     })
 
   }, [page, rowsPerPage, allOfAdvertisement])
@@ -98,18 +98,22 @@ const Advertisements = () => {
 
   //search
   useEffect(() => {
+
     
     if( advertisements.length > 0 ) {
+
       let test = advertisements.filter(el => el.name.toLowerCase().includes(searchInput.value))
       setFiltered(test)
+      
     }
-  }, [searchInput.value, advertisements])
 
-  // sotring
-  const [unsorted, setSorted] = useState(false)
-  const [sortedAdv, setSortedAdv] = useState([])
 
+  }, [searchInput.value.length, advertisements])
+
+  // sorting
   useEffect(() => {
+
+    
     
     if(selectedIndex === 1) {
 
@@ -126,12 +130,14 @@ const Advertisements = () => {
       let test = advertisements.toSorted(sort_by('views', true))
       setSortedAdv(test)
 
+
     } else if(selectedIndex === 0) {
       
-      setSortedAdv([])
+
+      setSortedAdv(advertisements)
 
     }
-  }, [options[selectedIndex]])
+  }, [selectedIndex])
 
   
   const handleChangePage = (event, newPage) => {
@@ -215,12 +221,9 @@ const Advertisements = () => {
           />
         </div>
         <List
-          // listOfAdvertisements = {filtered.length === advertisements.length || searchInput.value.length === 0 ? advertisements : filtered}
-          // sortedAdvertisements = { sortedAdv }
           listOfAdvertisements = {advertisements}
-          listOffiltered = { filtered }
+          listOfFiltered = { filtered }
           listOfSorted = { sortedAdv }
-          typeOfList = {typeOfList}
         />
       </div>
     </ThemeProvider>

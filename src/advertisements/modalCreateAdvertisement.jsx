@@ -35,7 +35,7 @@ const CreateAdvertisement = () => {
             body: JSON.stringify({
                 "name": `${nameInput.value}`,
                 "price": `${Number(priceInput.value)}`,
-                "createdAt": "2024-08-12T12:16:55.351Z",
+                "createdAt": "",
                 "views": 0,
                 "likes": 0,
                 "imageUrl": `${urlInput.value}`,
