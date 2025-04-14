@@ -11,7 +11,7 @@ const Card = (props) => {
 
     const {id, createdAt, description, imageUrl, likes, name, price, views} = props.data
 
-    const expandText = (text) => {
+    const collapseText = (text) => {
         if ( text ) {
             let expText = ''
             if ( text.length > 50 ) {
@@ -29,25 +29,24 @@ const Card = (props) => {
         <div 
             className="border border-slate-50 rounded-md flex flex-row p-3 bg-slate-50 hover:bg-slate-200"
         >
-                { imageUrl.length == 0 ? 
-                    <div className='flex w-48 h-32 border border-blue-200 rounded-lg items-center justify-center'>
-                        <HideImageIcon 
-                            fontSize='large'
-                            color='primary'
-                        />
-                    </div>
-                    :
-                    <div className="w-48 h-32 rounded-lg overflow-hidden">          
-                        <img src={imageUrl} alt="Your Image" className="object-contain" />
-                    </div>
-                }
-    
-                <div className="flex flex-col px-3 justify-between w-full">
+            { imageUrl.length == 0 ? 
+                <div className='flex w-48 h-32 border border-blue-200 rounded-lg items-center justify-center'>
+                    <HideImageIcon 
+                        fontSize='large'
+                        color='primary'
+                    />
+                </div>
+                :
+                <div className="w-48 h-32 rounded-lg overflow-hidden">          
+                    <img src={imageUrl} alt="Your Image" className="object-contain" />
+                </div>
+            }
+            <div className="flex flex-col px-3 justify-between w-full">
                 <div>
                     <h1
                         className="text-2xl text-slate-700 font-bold mb-2"
                     >{ name }</h1>
-                    <p>{ expandText( description ) }</p>
+                    <p>{ collapseText( description ) }</p>
                 </div>
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-row">

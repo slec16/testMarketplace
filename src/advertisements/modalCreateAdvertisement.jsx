@@ -17,6 +17,8 @@ import TitleIcon from '@mui/icons-material/Title';
     поменять инпут для описания
 
     !!!!бля цены строками сохранились
+    
+    !!переелать модлку под возможность редактирования объявы
 
 */
 const CreateAdvertisement = () => {
@@ -64,9 +66,25 @@ const CreateAdvertisement = () => {
                     }
                 />
                 <p className="text-slate-600">Название</p>
-                <Input {...nameInput} />
+                <Input 
+                    {...nameInput} 
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <TitleIcon />
+                        </InputAdornment>
+                    }
+                />
                 <p className="text-slate-600">Описание</p>
-                <Input {...descInput} />
+                <Input 
+                    {...descInput}
+                    multiline
+                    maxRows={4}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <DescriptionIcon />
+                        </InputAdornment>
+                    }
+                />
                 <p className="text-slate-600">Стоимость</p>
                 <Input  
                     {...priceInput}

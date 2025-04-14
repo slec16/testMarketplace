@@ -19,6 +19,11 @@ import MenuItem from '@mui/material/MenuItem';
 
 import sort_by from '../utils/sort'
 
+/*
+  Переделать сортировку(получать от бека)
+  после закрытия модалки обновлять весь список
+*/
+
 
 const Advertisements = () => {
 
@@ -130,14 +135,12 @@ const Advertisements = () => {
       let test = advertisements.toSorted(sort_by('views', true))
       setSortedAdv(test)
 
-
     } else if(selectedIndex === 0) {
       
-
       setSortedAdv(advertisements)
 
     }
-  }, [selectedIndex])
+  }, [selectedIndex, advertisements])
 
   
   const handleChangePage = (event, newPage) => {
@@ -159,7 +162,7 @@ const Advertisements = () => {
           <Box className="w-1/3" sx={{ display: 'flex', alignItems: 'flex-end' }}>
             <Input
               {...searchInput}
-              className='ml-4 my-2 w-full'
+              className='ml-4 my-2 w-4/5'
               startAdornment={
                 <InputAdornment position="start">
                   <SearchIcon />
@@ -171,12 +174,10 @@ const Advertisements = () => {
                 <SortIcon color='primary' className="" fontSize='large' />
               </IconButton>
             </Tooltip>
-            { options[selectedIndex] !== '-' ? 
+            { options[selectedIndex] !== '-' &&
               <p className="mb-3 text-slate-600">
                 {options[selectedIndex]}
               </p>
-              : 
-              <p></p>
             }
           </Box>
           <Menu
@@ -210,7 +211,7 @@ const Advertisements = () => {
             <CreateAdvertisement />
           </Modal>
           <TablePagination
-            className='w-1/3'
+            className=''
             component="div"
             count={allOfAdvertisement}
             page={page}

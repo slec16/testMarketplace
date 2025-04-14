@@ -2,8 +2,6 @@ import Card from "./Card"
 
 const List = (props) => {
 
-    console.log(props)
-
     const filterFn = (el) => {
         if(el == undefined){
             return false
