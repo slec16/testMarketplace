@@ -77,7 +77,6 @@ const Advertisements = () => {
         fetch(`http://localhost:3000/advertisements?_page=${page}&_per_page=${rowsPerPage}&_sort=-${options[selectedIndex]}`).then(res => {
             return res.json()
         }).then(result => {
-            setAllItems(result.items)
             setAdv(result.data)
             const pagination = {
                 first: result.first,
