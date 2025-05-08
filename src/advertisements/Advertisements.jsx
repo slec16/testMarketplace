@@ -31,16 +31,11 @@ import Pagination from './Pagination';
 const Advertisements = () => {
 
     const [locale, setLocale] = useState('ruRU');
-    const [advertisements, setAdvertisements] = useState([])
+    const [adv, setAdv] = useState([])
     const [filtered, setFiltered] = useState([])
-    const [allOfAdvertisement, setallOfAdvertisement] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [page, setPage] = useState(0);
-    // !!!!!!!!!
-    const [displayList, setDisplayList] = useState([])
-
-    const [sortedAdv, setSortedAdv] = useState([])
-
+    const [page, setPage] = useState(1);
+    const [paginationData, setPaginationData] = useState({})
 
     const theme = useTheme();
 
@@ -56,10 +51,10 @@ const Advertisements = () => {
     const handleClose = () => setOpen(false);
 
     const options = [
-        '-',
-        'Цена',
-        'Нравится',
-        'Просмотры'
+        '',
+        'price',
+        'likes',
+        'views'
     ]
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -78,82 +73,44 @@ const Advertisements = () => {
         setAnchorEl(null);
     };
 
-
-    useEffect(() => {
-        fetch('http://localhost:3000/advertisements').then(res => {
+    const fetchFnc = () => {
+        fetch(`http://localhost:3000/advertisements?_page=${page}&_per_page=${rowsPerPage}&_sort=-${options[selectedIndex]}`).then(res => {
             return res.json()
         }).then(result => {
-            setallOfAdvertisement(result.length)
+            setAllItems(result.items)
+            setAdv(result.data)
+            const pagination = {
+                first: result.first,
+                items: result.items,
+                last: result.last,
+                next: result.next,
+                pages: result.pages,
+                prev: result.prev
+            }
+            setPaginationData(pagination)
         })
-    }, [])
+    }
 
-    // fetch with calculated limit
     useEffect(() => {
-        let start = 0
-        let limit = 10
-
-        page === 0 ? start = 0 : start = (page * rowsPerPage)
-        rowsPerPage * (page + 1) > allOfAdvertisement ? limit = allOfAdvertisement : limit = rowsPerPage * (page + 1)
-
-        fetch(`http://localhost:3000/advertisements?_start=${start}&_limit=${limit}`).then(res => {
-            return res.json()
-        }).then(result => {
-            setAdvertisements(result)
-        })
-
-    }, [page, rowsPerPage, allOfAdvertisement])
+        fetchFnc()
+    }, [page, rowsPerPage, selectedIndex])
 
 
     //search
     useEffect(() => {
-
-
-        if (advertisements.length > 0) {
-
-            let test = advertisements.filter(el => el.name.toLowerCase().includes(searchInput.value))
-            setFiltered(test)
-
+        if (adv.length > 0) {
+            let searched = adv.filter(el => el.name.toLowerCase().includes(searchInput.value))
+            setFiltered(searched)
         }
-
-
-    }, [searchInput.value.length, advertisements])
-
-    // sorting
-    useEffect(() => {
-
-
-
-        if (selectedIndex === 1) {
-
-            let test = advertisements.toSorted(sort_by('price', true))
-            setSortedAdv(test)
-
-        } else if (selectedIndex === 2) {
-
-            let test = advertisements.toSorted(sort_by('likes', true))
-            setSortedAdv(test)
-
-        } else if (selectedIndex === 3) {
-
-            let test = advertisements.toSorted(sort_by('views', true))
-            setSortedAdv(test)
-
-        } else if (selectedIndex === 0) {
-
-            setSortedAdv(advertisements)
-
-        }
-    }, [selectedIndex, advertisements])
-
+    }, [searchInput.value.length, adv])
 
     const handleChangePage = (event, newPage) => {
-        console.log(newPage)
-        // setPage(newPage);
+        setPage(newPage);
     };
 
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
+    const handleChangeRowsPerPage = (rowsPerPage) => {
+        setRowsPerPage(rowsPerPage)
+        setPage(1)
     };
 
 
@@ -163,7 +120,6 @@ const Advertisements = () => {
         >
             <div>
                 <div className='bg-slate-200 rounded-lg mb-5 grid grid-cols-3 justify-items-stretch gap-0'>
-                    {/* <Box className="" sx={{ display: 'flex', alignItems: 'flex-end' }}> */}
                     <div className='flex items-center ml-3 justify-between'>
                         <Input
                             {...searchInput}
@@ -180,7 +136,6 @@ const Advertisements = () => {
                             </IconButton>
                         </Tooltip>
                     </div>
-                    {/* </Box> */}
                     <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -196,7 +151,7 @@ const Advertisements = () => {
                                 selected={index === selectedIndex}
                                 onClick={(event) => handleMenuItemClick(event, index)}
                             >
-                                {option}
+                                {option.length === 0 ? "-" : option}
                             </MenuItem>
                         ))}
                     </Menu>
@@ -222,28 +177,23 @@ const Advertisements = () => {
                     >
                         <CreateAdvertisement />
                     </Modal>
-                    {/* <div className='p-0'>
-                        <TablePagination
-                            component="div"
-                            count={allOfAdvertisement}
-                            page={page}
-                            onPageChange={handleChangePage}
-                            rowsPerPage={rowsPerPage}
-                            rowsPerPageOptions={[5, 10, 15, 25, 50]}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                        />
-                    </div> */}
-                    <Pagination
-                        count={allOfAdvertisement}
-                        onPageChange={handleChangePage}
 
-                    ></Pagination>
+                    <Pagination
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        paginationData={paginationData}
+                    />
+        
                 </div>
-                <List
-                    listOfAdvertisements={advertisements}
-                    listOfFiltered={filtered}
-                    listOfSorted={sortedAdv}
-                />
+                {adv.length !== 0 && 
+                    <List
+                        arrayOfAdvertisements={adv}
+                        arrayOfFiltered={filtered}
+                        // listOfSorted={sortedAdv}
+                    />
+                }
             </div>
         </ThemeProvider>
     )
