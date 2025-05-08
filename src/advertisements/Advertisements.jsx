@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import List from "./List"
-import TablePagination from '@mui/material/TablePagination';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import * as locales from '@mui/material/locale';
 import { Input } from '@mui/material';
@@ -16,16 +15,10 @@ import SortIcon from '@mui/icons-material/Sort';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-
-import sort_by from '../utils/sort'
-
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
 import Pagination from './Pagination';
-
-
-/*
-  Переделать сортировку(получать от бека)
-  после закрытия модалки обновлять весь список
-*/
 
 
 const Advertisements = () => {
@@ -48,7 +41,20 @@ const Advertisements = () => {
 
     const [open, setOpen] = useState(false);
     const openModal = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        fetchFunc()
+    }
+
+    const [openSnackBar, setOpenSnackBar] = useState(false)
+
+    const handleCloseSnackBar = () => {
+        setOpenSnackBar(false)
+    }
+
+    const handleSnackBarOpen = (state) => {
+        setOpenSnackBar(state)
+    }
 
     const options = [
         '',
@@ -73,7 +79,7 @@ const Advertisements = () => {
         setAnchorEl(null);
     };
 
-    const fetchFnc = () => {
+    const fetchFunc = () => {
         fetch(`http://localhost:3000/advertisements?_page=${page}&_per_page=${rowsPerPage}&_sort=-${options[selectedIndex]}`).then(res => {
             return res.json()
         }).then(result => {
@@ -91,7 +97,7 @@ const Advertisements = () => {
     }
 
     useEffect(() => {
-        fetchFnc()
+        fetchFunc()
     }, [page, rowsPerPage, selectedIndex])
 
 
@@ -174,7 +180,9 @@ const Advertisements = () => {
                         open={open}
                         onClose={handleClose}
                     >
-                        <CreateAdvertisement />
+                        <CreateAdvertisement 
+                            openSnackBar={handleSnackBarOpen}
+                        />
                     </Modal>
 
                     <Pagination
@@ -190,9 +198,24 @@ const Advertisements = () => {
                     <List
                         arrayOfAdvertisements={adv}
                         arrayOfFiltered={filtered}
-                        // listOfSorted={sortedAdv}
                     />
                 }
+                <Snackbar
+                        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                        open={openSnackBar}
+                        slots={{ transition: Slide}}
+                        onClose={handleCloseSnackBar}
+                        autoHideDuration={3000}
+                    >
+                    <Alert
+                        onClose={handleCloseSnackBar}
+                        severity="success"
+                        variant="filled"
+                        sx={{ width: '100%' }}
+                    >
+                        Объявление создано
+                    </Alert>
+                </Snackbar>
             </div>
         </ThemeProvider>
     )

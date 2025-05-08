@@ -11,6 +11,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Modal from '@mui/material/Modal';
+
+import CreateAdvertisement from './modalCreateAdvertisement'
 
 /*
 
@@ -23,21 +26,40 @@ const AdvertisementPage = () => {
 
     const [product, setProduct] = useState({})
     const [isDeleted, setIsDeleted] = useState(false)
+    const [openEditModal, setOpenEditModal] = useState(false)
+    const handleClosaEditModal = () => {
+        setOpenEditModal(false)
+        fetchFunc()
+    }
 
     let { id } = useParams();
-    useEffect( () => {
+
+    const fetchFunc = () => {
         fetch(`http://localhost:3000/advertisements/${id}`).then(res => {
-          return res.json()
+            return res.json()
         }).then(result => {
             console.log(result)
             setProduct(result)
         })
-    },[])
+    }
+
+
+
+    useEffect( () => {
+        fetch(`http://localhost:3000/advertisements/${id}`).then(res => {
+            return res.json()
+        }).then(result => {
+            console.log(result)
+            setProduct(result)
+        })
+    }, [])
 
     const editAdvertisement = () => {
         //вызвать существующую модалку с пропсом что это редактированик
-        console.log("modal")
-        //обновить страницу
+        setOpenEditModal(true)
+        // console.log("modal")
+
+        //обновить страницу!!!!!!
     }
 
     const deleteAdvertisement = () => {
@@ -110,6 +132,18 @@ const AdvertisementPage = () => {
                     </div>
                 </div>
             </div>
+            <Modal
+                open={openEditModal}
+                onClose={handleClosaEditModal}
+            >
+                <CreateAdvertisement 
+                    openSnackBar={() => {}}
+                    editModal={true}
+                    currentData={product}
+                    id={id}
+                    onClose={handleClosaEditModal}
+                />
+            </Modal>
         </>
     )
 }
