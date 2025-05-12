@@ -4,7 +4,7 @@ import Header from '../src/components/Header'
 
 import TabsRouter from '../src/components/TabsRouter'
 import { Routes, Route } from "react-router";
-import Orders from '../src/orders/Orders'
+import Orders from './orders/Orders'
 import Advertisements from './advertisements/Advertisements'
 import Wrapper from './components/Wrapper';
 import AdvertisementPage from "./advertisements/AdvertisementPage"

@@ -12,13 +12,12 @@ import useInput from '../hooks/useInput';
 import CreateAdvertisement from './modalCreateAdvertisement'
 import Tooltip from '@mui/material/Tooltip';
 import SortIcon from '@mui/icons-material/Sort';
-import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
-import Pagination from './Pagination';
+import Pagination from '../components/Pagination';
 
 
 const Advertisements = () => {

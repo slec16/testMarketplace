@@ -60,9 +60,9 @@ const Pagination = (props) => {
     return (
         <div className="flex flex-row items-center justify-between">
             <div className='flex flex-row items-center '>
-                <p className='mr-1'>Объявлений на странице</p>
+                <p className='mr-1'>Строк на странице</p>
                 <button
-                    className='hover:bg-slate-300 px-3 rounded-full'
+                    className='hover:bg-slate-300 px-3 rounded-full text-sky-400'
                     onClick={openOptionsMenu}
                 >
                     {options[selectedIndex]}
