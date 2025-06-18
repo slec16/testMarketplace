@@ -17,7 +17,7 @@ import Alert from '@mui/material/Alert';
 import Pagination from '../components/Pagination';
 import { type IAdvertisement } from '../interfaces';
 import { type IPaginationData } from '../interfaces';
-
+import ApiService from '../services/api-service';
 
 const Advertisements = () => {
 
@@ -76,21 +76,18 @@ const Advertisements = () => {
         setAnchorEl(null);
     };
 
-    const fetchFunc = () => {
-        fetch(`http://localhost:3000/advertisements?_page=${page}&_per_page=${rowsPerPage}&_sort=-${options[selectedIndex]}`).then(res => {
-            return res.json()
-        }).then(result => {
-            setAdv(result.data)
-            const pagination = {
-                first: result.first,
-                items: result.items,
-                last: result.last,
-                next: result.next,
-                pages: result.pages,
-                prev: result.prev
-            }
-            setPaginationData(pagination)
-        })
+    const fetchFunc = async () => {
+        const response = await ApiService.getAdvertisements(page, rowsPerPage, options[selectedIndex])
+        setAdv(response.data)
+        const pagination = {
+            first: response.first,
+            items: response.items,
+            last: response.last,
+            next: response.next,
+            pages: response.pages,
+            prev: response.prev
+        }
+        setPaginationData(pagination)
     }
 
     useEffect(() => {

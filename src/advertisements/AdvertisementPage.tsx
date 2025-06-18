@@ -8,11 +8,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Modal from '@mui/material/Modal';
 import CreateAdvertisement from './modalCreateAdvertisement'
-
+import ApiService from '../services/api-service';
 import { type IAdvertisement } from '../interfaces';
 
 /*
-
+    TODO:
     При переходе с роута объявы обранто в список сохранять в локал сторадже
     параметры поиска
 
@@ -30,47 +30,29 @@ const AdvertisementPage = () => {
 
     let { id } = useParams();
 
-    const fetchFunc = () => {
-        fetch(`http://localhost:3000/advertisements/${id}`).then(res => {
-            return res.json()
-        }).then(result => {
-            setProduct(result)
-        })
+    const fetchFunc = async () => {
+        if( id ) {
+            const response = await ApiService.getAdvertisementsById(id)
+            console.log(response)
+            setProduct(response)
+        }
     }
 
-
-
     useEffect( () => {
-        fetch(`http://localhost:3000/advertisements/${id}`).then(res => {
-            return res.json()
-        }).then(result => {
-            setProduct(result)
-        })
+        fetchFunc()
     }, [])
 
     const editAdvertisement = () => {
-        //вызвать существующую модалку с пропсом что это редактированик
         setOpenEditModal(true)
-        // console.log("modal")
-
-        //обновить страницу!!!!!!
     }
 
-    const deleteAdvertisement = () => {
-        //вызвать удаление => если успешно заменить верстку с надписью "объявление удалено"
-        fetch(`http://localhost:3000/advertisements/${id}`, {
-            method: 'delete'
-        }).then(res => {
-            return res.json()
-        }).then(result => {
-              console.log(result)
-              if(result) {
-                //сменить верстку
-                console.log("change layout")
-                setIsDeleted(true)
-              }
-            //   setProduct(result)
-        })
+    const deleteAdvertisement = async () => {
+        if( id ) {
+            console.log("delete")
+            const response = await ApiService.deleteAdvertisementsById(id)
+            console.log(response)
+            response && setIsDeleted(true)
+        }
     }
 
     return (

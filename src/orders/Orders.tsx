@@ -4,6 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import OrdersList from './OrdersList'
 import type { IOrders, IPaginationData } from '../interfaces';
+import ApiService from '../services/api-service';
 
 const Orders = () => {
 
@@ -83,22 +84,18 @@ const Orders = () => {
     }
 
 //http://localhost:3000/orders?_page=1&_per_page=5&_sort=-total&status=0
-    const fetchFunc = () => {
-        fetch(`http://localhost:3000/orders?_page=${page}&_per_page=${rowsPerPage}&_sort=${selectedPriceSort == 0 ? "-" : ""}total&status=${selectedStatus == 7 ? "" : selectedStatus}`).then(res => {
-            return res.json()
-        }).then(result => {
-            console.log(result)
-            setOrders(result.data)
-            const pagination = {
-                first: result.first,
-                items: result.items,
-                last: result.last,
-                next: result.next,
-                pages: result.pages,
-                prev: result.prev
-            }
-            setPaginationData(pagination)
-        })
+    const fetchFunc = async () => {
+        const response = await ApiService.getOrders(page, rowsPerPage, selectedPriceSort, selectedStatus) 
+        setOrders(response.data)
+        const pagination = {
+            first: response.first,
+            items: response.items,
+            last: response.last,
+            next: response.next,
+            pages: response.pages,
+            prev: response.prev
+        }
+        setPaginationData(pagination)
     }
 
     useEffect(() => {

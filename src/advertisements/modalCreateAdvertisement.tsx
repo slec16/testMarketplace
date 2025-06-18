@@ -7,7 +7,7 @@ import useInput from '../hooks/useInput';
 import DescriptionIcon from '@mui/icons-material/Description';
 import TitleIcon from '@mui/icons-material/Title';
 import { type IAdvertisement } from '../interfaces';
-
+import ApiService from '../services/api-service';
 
 type CreateAdvertisementProps = {
     openSnackBar: (state: boolean) => void
@@ -38,50 +38,32 @@ const CreateAdvertisement = (props: CreateAdvertisementProps) => {
         priceInputUpdate = useInput(currentData.price as unknown as string) //TODO
     }
 
-    const createAdvertisement = () => {
-        fetch('http://localhost:3000/advertisements', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({
-                "name": `${nameInput.value}`,
-                "price": `${Number(priceInput.value)}`,
-                "createdAt": "",
-                "views": 0,
-                "likes": 0,
-                "imageUrl": `${urlInput.value}`,
-                "description": `${descInput.value}`
-            })
-        }).then(res => {
-            return res.json()
-        }).then(() => {
-            openSnackBar(true)
-        });
+    const createAdvertisement = async () => {
+        const body = {
+            "name": `${nameInput.value}`,
+            "price": `${Number(priceInput.value)}`,
+            "createdAt": "",
+            "views": 0,
+            "likes": 0,
+            "imageUrl": `${urlInput.value}`,
+            "description": `${descInput.value}`
+        }
+        await ApiService.postAdvertisements(body)
+        openSnackBar(true)
     }
 
-
-    // исправить на patch метод
-    const updateAdvertisement = () => {
-        fetch(`http://localhost:3000/advertisements/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({
-                "name": `${nameInputUpdate.value}`,
-                "price": `${Number(priceInputUpdate.value)}`,
-                "createdAt": "",
-                "views": 0,
-                "likes": 0,
-                "imageUrl": `${urlInputUpdate.value}`,
-                "description": `${descInputUpdate.value}`
-            })
-        }).then(res => {
-            return res.json()
-        }).then(() => {
-            onClose && onClose()
-        });
+    const updateAdvertisement = async () => {
+        const body ={
+            "name": `${nameInputUpdate.value}`,
+            "price": `${Number(priceInputUpdate.value)}`,
+            "createdAt": "",
+            "views": 0,
+            "likes": 0,
+            "imageUrl": `${urlInputUpdate.value}`,
+            "description": `${descInputUpdate.value}`
+        }
+        id && await ApiService.patchAdvertisements(id, body)
+        onClose && onClose()
     }
 
     return (
