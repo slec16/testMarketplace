@@ -8,7 +8,7 @@ import {
 } from 'react-router';
 
 
-function useRouteMatch(patterns: readonly string[]) {
+const useRouteMatch = (patterns: readonly string[]) => {
   const { pathname } = useLocation();
 
   for (let i = 0; i < patterns.length; i += 1) {
@@ -22,7 +22,7 @@ function useRouteMatch(patterns: readonly string[]) {
   return null;
 }
 
-function MyTabs() {
+const MyTabs = () => {
 
   const routeMatch = useRouteMatch(['/advertisements', '/orders']);
   const currentTab = routeMatch?.pattern?.path;

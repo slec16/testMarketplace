@@ -1,7 +1,6 @@
 import './App.css'
 import '../src/components/Header'
 import Header from '../src/components/Header'
-
 import TabsRouter from '../src/components/TabsRouter'
 import { Routes, Route } from "react-router";
 import Orders from './orders/Orders'
@@ -22,6 +21,7 @@ function App() {
                 <TabsRouter></TabsRouter>
 
                 <Routes>
+                    <Route path='/' element={<div></div>}/>
                     <Route path='/advertisements' element={<Advertisements />} />
                     <Route path='/orders' element={<Orders />}/>
                     <Route path='/advertisements/:id' element={<AdvertisementPage />} />
