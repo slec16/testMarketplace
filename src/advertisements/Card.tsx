@@ -1,17 +1,21 @@
 import {
   Link,
-  matchPath,
-  useLocation,
 } from 'react-router';
 import HideImageIcon from '@mui/icons-material/HideImage';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { type IAdvertisement } from '../interfaces';
 
-const Card = (props) => {
+type CardProps = {
+    data: IAdvertisement;
+    key: string
+}
 
-    const {id, createdAt, description, imageUrl, likes, name, price, views} = props.data
+const Card = (props: CardProps) => {
 
-    const collapseText = (text) => {
+    const {id, description, imageUrl, likes, name, price, views} = props.data
+
+    const collapseText = (text: string) => {
         if ( text ) {
             let expText = ''
             if ( text.length > 50 ) {

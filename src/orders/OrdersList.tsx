@@ -1,6 +1,11 @@
 import OrdersCard from "./OrdersCard"
+import { type IOrders } from "../interfaces"
 
-const OrdersList = (props) => {
+type OrdersProps = {
+    orders: IOrders[]
+}
+
+const OrdersList = (props: OrdersProps) => {
 
     const orders = props.orders
 

@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { type IPaginationData } from '../interfaces';
 
-const Pagination = (props) => {
+type PaginationProps = {
+    page: number;
+    onPageChange: (newPage: number) => void;
+    rowsPerPage: number
+    onRowsPerPageChange: (rowsPerPage: number) => void;
+    paginationData: IPaginationData
+}
+
+const Pagination = (props: PaginationProps) => {
 
     const { page, onPageChange, rowsPerPage, onRowsPerPageChange, paginationData } = props
     
     const { items, next, prev } = paginationData
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState<any>(null);
 
     const [selectedIndex, setSelectedIndex] = useState(1);
     const openSort = Boolean(anchorEl);
@@ -25,12 +34,12 @@ const Pagination = (props) => {
     useEffect(() => {
         let start, limit
         page === 1 ? start = 1 : start = ((page-1) * rowsPerPage)+1
-        rowsPerPage*page > items ? limit = items : limit = (rowsPerPage*page)
+        items && rowsPerPage*page > items ? limit = items : limit = (rowsPerPage*page)
         setStartRange(start)
         setEndRange(limit)
     }, [page, rowsPerPage])
 
-    const openOptionsMenu = (event) => {
+    const openOptionsMenu = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
     
@@ -38,21 +47,21 @@ const Pagination = (props) => {
         setAnchorEl(null);
     };
 
-    const handleChangeOptions = (index) => {
+    const handleChangeOptions = (index: number) => {
         setSelectedIndex(index)
         onRowsPerPageChange(options[index])
     }
 
-    const prevPage = (event) => {
+    const prevPage = () => {
         if(currentPage === 1) return
         let tempPage = currentPage-1
-        onPageChange( event, tempPage )
+        onPageChange(tempPage)
         setCurrentPage(tempPage)
     }
 
-    const nextPage = (event) => {
+    const nextPage = () => {
         let tempPage = currentPage+1        
-        onPageChange( event, tempPage )
+        onPageChange(tempPage)
         setCurrentPage(tempPage)
     }
 
@@ -63,7 +72,7 @@ const Pagination = (props) => {
                 <p className='mr-1'>Строк на странице</p>
                 <button
                     className='hover:bg-slate-300 px-3 rounded-full text-sky-400'
-                    onClick={openOptionsMenu}
+                    onClick={ (e) => openOptionsMenu(e) }
                 >
                     {options[selectedIndex]}
                 </button>
@@ -92,13 +101,13 @@ const Pagination = (props) => {
             <p>{startRange}-{endRange} из {items}</p>
             <div>    
                 <IconButton 
-                    onClick={ (e) => prevPage(e) }
+                    onClick={ prevPage }
                     disabled={prev == null}
                 >
                     <ArrowBackIcon color='primary' />
                 </IconButton>
                 <IconButton 
-                    onClick={ (e) => nextPage(e) }
+                    onClick={ nextPage }
                     disabled={next == null}
                 >
                     <ArrowForwardIcon color='primary' />

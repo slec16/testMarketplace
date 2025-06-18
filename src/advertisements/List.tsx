@@ -1,6 +1,12 @@
 import Card from "./Card"
+import { type IAdvertisement } from "../interfaces"
 
-const List = (props) => {
+type ListProps = {
+    arrayOfAdvertisements: IAdvertisement[];
+    arrayOfFiltered: IAdvertisement[]
+}
+
+const List = (props: ListProps) => {
     
     const {arrayOfAdvertisements, arrayOfFiltered} = props
 

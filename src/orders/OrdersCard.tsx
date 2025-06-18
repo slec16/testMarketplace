@@ -1,10 +1,16 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import { useState } from 'react';
 import { twMerge } from 'tailwind-merge'
 import HideImageIcon from '@mui/icons-material/HideImage';
 import Modal from '@mui/material/Modal';
 import ModalListAdv from "./ModalListAdv"
+import { type IOrders } from '../interfaces';
 
-const OrdersCard = (props) => {
+type OrdersCardProps = {
+    data: IOrders;
+    key: string
+}
+
+const OrdersCard = (props: OrdersCardProps) => {
 
     const {id, status, createdAt, finishedAt, total, deliveryWay, items} = props.data
 
@@ -16,15 +22,15 @@ const OrdersCard = (props) => {
     let dateFinish 
     finishedAt ? dateFinish = (new Date(Date.parse(finishedAt))).toUTCString() : dateFinish = "-"
     
-    const orderStatus = {
-        0: "Создан",
-        1: "Оплачен",
-        2: "В пути",
-        3: "В пункте выдачи",
-        4: "Доставлен",
-        5: "Архивиравано",
-        6: "Возрат"
-    }
+    const orderStatus = new Map<number, string>([
+        [0, "Создан"],
+        [1, "Оплачен"],
+        [2, "В пути"],
+        [3, "В пункте выдачи"],
+        [4, "Доставлен"],
+        [5, "Архивировано"],
+        [6, "Возврат"],
+    ]);
 
 
     const dataStyle = "text-m font-medium text-gray-500"
@@ -76,7 +82,7 @@ const OrdersCard = (props) => {
                     <p className={dataStyle}>Способ доставки: {deliveryWay}</p>
                     <div className="flex flex-row">
                         <p className={twMerge(dataStyle, "mr-1")}>Статус:</p>
-                        <p className={twMerge(dataStyle, "text-sky-400")}>{orderStatus[status]}</p>
+                        <p className={twMerge(dataStyle, "text-sky-400")}>{orderStatus.get(status)}</p>
                     </div>
                     <p className="flex justify-end text-xl font-medium text-gray-500">{total}₽</p>
                 </div>

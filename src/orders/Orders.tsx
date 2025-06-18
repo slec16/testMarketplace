@@ -1,25 +1,31 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import Pagination from '../components/Pagination';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import OrdersCard from './OrdersCard'
 import OrdersList from './OrdersList'
+import type { IOrders, IPaginationData } from '../interfaces';
 
 const Orders = () => {
 
-
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState<IOrders[]>([])
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [page, setPage] = useState(1);
-    const [paginationData, setPaginationData] = useState({})
+    const [paginationData, setPaginationData] = useState<IPaginationData>({
+        first: null,
+        items: null,
+        last: null,
+        next: null,
+        pages: null,
+        prev: null
+    })
 
 
 
-    const handleChangePage = (event, newPage) => {
+    const handleChangePage = (newPage: number) => {
         setPage(newPage);
     };
 
-    const handleChangeRowsPerPage = (rowsPerPage) => {
+    const handleChangeRowsPerPage = (rowsPerPage: number) => {
         setRowsPerPage(rowsPerPage)
         setPage(1)
     };
@@ -34,7 +40,7 @@ const Orders = () => {
     const [selectedPriceSort, setSelectedPriceSort] = useState(0)
     const openPrice = Boolean(anchorElPrice)
 
-    const openPriceMenu = (event) => {
+    const openPriceMenu = (event: any) => {
         setAnchorElPrice(event.currentTarget);
     };
 
@@ -43,7 +49,7 @@ const Orders = () => {
     };
 
     
-    const handleMenuPriceClick = (event, index) => {
+    const handleMenuPriceClick = (index: number) => {
         setSelectedPriceSort(index);
         setAnchorElPrice(null);
     }
@@ -62,7 +68,7 @@ const Orders = () => {
     const [anchorElStatus, setAnchorElStatus] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState(7);
     const openStatus = Boolean(anchorElStatus);
-    const openSortMenu = (event) => {
+    const openSortMenu = (event: any) => {
         setAnchorElStatus(event.currentTarget);
     };
 
@@ -71,7 +77,7 @@ const Orders = () => {
     };
 
     
-    const handleMenuStatusClick = (event, index) => {
+    const handleMenuStatusClick = (index: number) => {
         setSelectedStatus(index);
         setAnchorElStatus(null);
     }
@@ -123,7 +129,7 @@ const Orders = () => {
                         <MenuItem
                             key={option}
                             selected={index === selectedStatus}
-                            onClick={(event) => handleMenuStatusClick(event, index)}
+                            onClick={() => handleMenuStatusClick(index)}
                         >
                             {option}
                         </MenuItem>
@@ -149,7 +155,7 @@ const Orders = () => {
                         <MenuItem
                             key={option}
                             selected={index === selectedPriceSort}
-                            onClick={(event) => handleMenuPriceClick(event, index)}
+                            onClick={() => handleMenuPriceClick(index)}
                         >
                             {option}
                         </MenuItem>

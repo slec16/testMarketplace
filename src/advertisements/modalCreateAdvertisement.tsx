@@ -6,15 +6,18 @@ import LinkIcon from '@mui/icons-material/Link';
 import useInput from '../hooks/useInput';
 import DescriptionIcon from '@mui/icons-material/Description';
 import TitleIcon from '@mui/icons-material/Title';
+import { type IAdvertisement } from '../interfaces';
 
 
-//==================//
-/* 
-    
-    !!переелать модлку под возможность редактирования объявы
+type CreateAdvertisementProps = {
+    openSnackBar: (state: boolean) => void
+    editModal?: boolean
+    currentData?: IAdvertisement
+    id?: string | undefined
+    onClose?: () => void
+}
 
-*/
-const CreateAdvertisement = (props) => {
+const CreateAdvertisement = (props: CreateAdvertisementProps) => {
 
     const {openSnackBar, editModal, currentData, id, onClose} = props
 
@@ -23,16 +26,16 @@ const CreateAdvertisement = (props) => {
     const descInput = useInput()
     const priceInput = useInput()
 
-    let urlInputUpdate 
-    let nameInputUpdate 
-    let descInputUpdate 
-    let priceInputUpdate 
+    let urlInputUpdate = useInput()
+    let nameInputUpdate = useInput()
+    let descInputUpdate = useInput()
+    let priceInputUpdate = useInput()
     
     if(currentData){
-        urlInputUpdate = useInput(currentData.imageUrl)
+        urlInputUpdate  = useInput(currentData.imageUrl)
         nameInputUpdate = useInput(currentData.name)
         descInputUpdate = useInput(currentData.description)
-        priceInputUpdate = useInput(currentData.price)
+        priceInputUpdate = useInput(currentData.price as unknown as string) //TODO
     }
 
     const createAdvertisement = () => {
@@ -52,7 +55,7 @@ const CreateAdvertisement = (props) => {
             })
         }).then(res => {
             return res.json()
-        }).then(answer => {
+        }).then(() => {
             openSnackBar(true)
         });
     }
@@ -76,10 +79,8 @@ const CreateAdvertisement = (props) => {
             })
         }).then(res => {
             return res.json()
-        }).then(answer => {
-            // console.log(answer)
-            onClose()
-            // openSnackBar(true)
+        }).then(() => {
+            onClose && onClose()
         });
     }
 
@@ -121,6 +122,7 @@ const CreateAdvertisement = (props) => {
                         <p className="text-slate-600">Стоимость</p>
                         <Input  
                             {...priceInput}
+                            type='number'
                             endAdornment={
                                 <InputAdornment position="end">
                                     <CurrencyRubleIcon />
@@ -168,6 +170,7 @@ const CreateAdvertisement = (props) => {
                         <p className="text-slate-600">Стоимость</p>
                         <Input  
                             {...priceInputUpdate}
+                            type='number'
                             endAdornment={
                                 <InputAdornment position="end">
                                     <CurrencyRubleIcon />
