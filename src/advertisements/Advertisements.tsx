@@ -60,10 +60,10 @@ const Advertisements = () => {
         'views'
     ]
 
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const openSort = Boolean(anchorEl);
-    const openSortMenu = (event: any) => {
+    const openSortMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -127,7 +127,7 @@ const Advertisements = () => {
                         }
                     />
                     <Tooltip title="Сортировать">
-                        <IconButton onClick={openSortMenu}>
+                        <IconButton onClick={ (event) => openSortMenu(event) }>
                             <SortIcon color='primary' fontSize='large' />
                         </IconButton>
                     </Tooltip>

@@ -37,11 +37,11 @@ const Orders = () => {
         "По возрастанию",
     ]
 
-    const [anchorElPrice, setAnchorElPrice] = useState(null);
+    const [anchorElPrice, setAnchorElPrice] = useState<HTMLButtonElement | null>(null);
     const [selectedPriceSort, setSelectedPriceSort] = useState(0)
     const openPrice = Boolean(anchorElPrice)
 
-    const openPriceMenu = (event: any) => {
+    const openPriceMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorElPrice(event.currentTarget);
     };
 
@@ -66,10 +66,10 @@ const Orders = () => {
         "Все"
     ]
 
-    const [anchorElStatus, setAnchorElStatus] = useState(null);
+    const [anchorElStatus, setAnchorElStatus] = useState<HTMLButtonElement | null>(null);
     const [selectedStatus, setSelectedStatus] = useState(7);
     const openStatus = Boolean(anchorElStatus);
-    const openSortMenu = (event: any) => {
+    const openSortMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorElStatus(event.currentTarget);
     };
 

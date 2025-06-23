@@ -21,7 +21,7 @@ const Pagination = (props: PaginationProps) => {
     const { items, next, prev } = paginationData
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [anchorEl, setAnchorEl] = useState<any>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
     const [selectedIndex, setSelectedIndex] = useState(1);
     const openSort = Boolean(anchorEl);
@@ -39,7 +39,7 @@ const Pagination = (props: PaginationProps) => {
         setEndRange(limit)
     }, [page, rowsPerPage])
 
-    const openOptionsMenu = (event: any) => {
+    const openOptionsMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorEl(event.currentTarget);
     };
     
