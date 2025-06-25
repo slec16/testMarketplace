@@ -14,7 +14,8 @@ export class HttpService {
             },
         })
 
-        return response.json()
+        // return response.json()
+        return this._handleResponse(response)
     }
 
     protected async post(path: string, body: any) {
@@ -28,7 +29,9 @@ export class HttpService {
             },
         });
 
-        return response.json();
+        // return response.json();
+        return this._handleResponse(response)
+
     }
 
     protected async delete(path: string){
@@ -40,7 +43,9 @@ export class HttpService {
             },
         })
 
-        return response.json()
+        // return response.json()
+        return this._handleResponse(response)
+
     }
 
     protected async patch(path: string, body: any) {
@@ -54,10 +59,12 @@ export class HttpService {
             },
         });
 
-        return response.json();
+        // return response.json();
+        return this._handleResponse(response)
+
     }
 
-    async _handleResponse(response: any) {
+    private async _handleResponse(response: any) {
         const parsedData = await response.json()
 
         if( response.ok ) {
