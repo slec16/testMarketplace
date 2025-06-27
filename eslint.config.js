@@ -1,41 +1,10 @@
-// import js from '@eslint/js'
-// import globals from 'globals'
-// import reactHooks from 'eslint-plugin-react-hooks'
-// import reactRefresh from 'eslint-plugin-react-refresh'
-// import tseslint from 'typescript-eslint'
-
-// export default tseslint.config(
-//   { ignores: ['dist', 'coverage', '*.config.ts'] },
-//   {
-//     extends: [js.configs.recommended, ...tseslint.configs.recommended],
-//     files: ['**/*.{ts,tsx}'],
-//     languageOptions: {
-//       ecmaVersion: 2020,
-//       globals: globals.browser,
-//     },
-//     plugins: {
-//       'react-hooks': reactHooks,
-//       'react-refresh': reactRefresh,
-//     },
-//     rules: {
-//       ...reactHooks.configs.recommended.rules,
-//       'react-refresh/only-export-components': [
-//         'warn',
-//         { allowConstantExport: true },
-//       ],
-//     },
-//   },
-// )
-
-
 // Импорт необходимых модулей
-import js from '@eslint/js'; // Базовые правила ESLint
 import globals from 'globals'; // Глобальные переменные (браузер, node и т.д.)
 import tsParser from '@typescript-eslint/parser'; // Парсер TypeScript
 import tsPlugin from '@typescript-eslint/eslint-plugin'; // Плагин TypeScript
 import reactPlugin from 'eslint-plugin-react'; // Плагин React
 import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'; // Плагин Fast Refresh
+
 
 export default [
   // Базовые настройки для всех файлов
@@ -69,7 +38,7 @@ export default [
       '@typescript-eslint': tsPlugin,
       react: reactPlugin,
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+
 
     },
     rules: {
@@ -88,14 +57,7 @@ export default [
 
       // React Hooks правила
       'react-hooks/rules-of-hooks': 'error', // Проверяет правила хуков
-      'react-hooks/exhaustive-deps': 'warn', // Проверяет зависимости эффектов
-
-      // React Refresh (для Vite)
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true } // Разрешает экспорт констант
-      ],
-
+      // 'react-hooks/exhaustive-deps': 'warn', // Проверяет зависимости эффектов
     
     },
     settings: {
