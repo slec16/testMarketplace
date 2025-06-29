@@ -8,6 +8,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import TitleIcon from '@mui/icons-material/Title';
 import { type IAdvertisement } from '../interfaces';
 import ApiService from '../services/api-service';
+import { useAbortController } from '../hooks/useAbortController';
 
 type CreateAdvertisementProps = {
     openSnackBar: (state: boolean) => void
@@ -20,6 +21,9 @@ type CreateAdvertisementProps = {
 const CreateAdvertisement = (props: CreateAdvertisementProps) => {
 
     const {openSnackBar, editModal, currentData, id, onClose} = props
+
+    const { createAbortController } = useAbortController()
+    const controller = createAbortController()
 
     const urlInput = useInput()
     const nameInput = useInput()
@@ -48,7 +52,7 @@ const CreateAdvertisement = (props: CreateAdvertisementProps) => {
             "imageUrl": `${urlInput.value}`,
             "description": `${descInput.value}`
         }
-        await ApiService.postAdvertisements(body)
+        await ApiService.postAdvertisements(body, controller.signal)
         openSnackBar(true)
     }
 
@@ -62,7 +66,7 @@ const CreateAdvertisement = (props: CreateAdvertisementProps) => {
             "imageUrl": `${urlInputUpdate.value}`,
             "description": `${descInputUpdate.value}`
         }
-        id && await ApiService.patchAdvertisements(id, body)
+        id && await ApiService.patchAdvertisements(id, body, controller.signal)
         onClose && onClose()
     }
 

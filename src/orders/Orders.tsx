@@ -5,10 +5,13 @@ import MenuItem from '@mui/material/MenuItem';
 import OrdersList from './OrdersList'
 import type { IOrders, IPaginationData } from '../interfaces';
 import ApiService from '../services/api-service';
+import { useAbortController } from '../hooks/useAbortController';
 
 const Orders = () => {
 
     const [orders, setOrders] = useState<IOrders[]>([])
+    const { createAbortController } = useAbortController()
+    const controller = createAbortController()
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [page, setPage] = useState(1);
     const [paginationData, setPaginationData] = useState<IPaginationData>({
@@ -85,7 +88,7 @@ const Orders = () => {
 
 //http://localhost:3000/orders?_page=1&_per_page=5&_sort=-total&status=0
     const fetchFunc = async () => {
-        const response = await ApiService.getOrders(page, rowsPerPage, selectedPriceSort, selectedStatus) 
+        const response = await ApiService.getOrders(page, rowsPerPage, selectedPriceSort, selectedStatus, controller.signal) 
         setOrders(response.data)
         const pagination = {
             first: response.first,

@@ -9,6 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Modal from '@mui/material/Modal';
 import CreateAdvertisement from './modalCreateAdvertisement'
 import ApiService from '../services/api-service';
+import { useAbortController } from '../hooks/useAbortController';
 import { type IAdvertisement } from '../interfaces';
 
 /*
@@ -21,6 +22,8 @@ import { type IAdvertisement } from '../interfaces';
 const AdvertisementPage = () => {
 
     const [product, setProduct] = useState<IAdvertisement | null>(null)
+    const { createAbortController } = useAbortController()
+    const controller = createAbortController()
     const [isDeleted, setIsDeleted] = useState(false)
     const [openEditModal, setOpenEditModal] = useState(false)
     const handleClosaEditModal = () => {
@@ -32,7 +35,7 @@ const AdvertisementPage = () => {
 
     const fetchFunc = async () => {
         if( id ) {
-            const response = await ApiService.getAdvertisementsById(id)
+            const response = await ApiService.getAdvertisementsById(id, controller.signal)
             console.log(response)
             setProduct(response)
         }
@@ -49,7 +52,7 @@ const AdvertisementPage = () => {
     const deleteAdvertisement = async () => {
         if( id ) {
             console.log("delete")
-            const response = await ApiService.deleteAdvertisementsById(id)
+            const response = await ApiService.deleteAdvertisementsById(id, controller.signal)
             console.log(response)
             response && setIsDeleted(true)
         }

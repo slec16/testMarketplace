@@ -18,11 +18,14 @@ import Pagination from '../components/Pagination';
 import { type IAdvertisement } from '../interfaces';
 import { type IPaginationData } from '../interfaces';
 import ApiService from '../services/api-service';
+import { useAbortController } from '../hooks/useAbortController';
 
 const Advertisements = () => {
 
     const [adv, setAdv] = useState<IAdvertisement[]>([])
     const [filtered, setFiltered] = useState<IAdvertisement[]>([])
+    const { createAbortController } = useAbortController();
+    const controller = createAbortController();
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [page, setPage] = useState(1);
     const [paginationData, setPaginationData] = useState<IPaginationData>({
@@ -77,7 +80,8 @@ const Advertisements = () => {
     };
 
     const fetchFunc = async () => {
-        const response = await ApiService.getAdvertisements(page, rowsPerPage, options[selectedIndex])
+        const response = await ApiService.getAdvertisements(page, rowsPerPage, options[selectedIndex], controller.signal)
+        console.log(response)
         setAdv(response.data)
         const pagination = {
             first: response.first,
@@ -98,7 +102,7 @@ const Advertisements = () => {
     //search
     useEffect(() => {
         if (adv.length > 0) {
-            let searched = adv.filter(el => el.name.toLowerCase().includes(searchInput.value))
+            const searched = adv.filter(el => el.name.toLowerCase().includes(searchInput.value))
             setFiltered(searched)
         }
     }, [searchInput.value.length, adv])
