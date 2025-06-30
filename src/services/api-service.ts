@@ -1,4 +1,4 @@
-import { API_PATH } from "./constant";
+import { API_PATH } from "./constant"
 import { HttpService } from "./http-service"
 
 

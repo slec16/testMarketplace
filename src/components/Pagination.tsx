@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { type IPaginationData } from '../interfaces';
+import { useState, useEffect } from 'react'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import IconButton from '@mui/material/IconButton'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { type IPaginationData } from '../interfaces'
 
 type PaginationProps = {
     page: number;
@@ -21,10 +21,10 @@ const Pagination = (props: PaginationProps) => {
     const { items, next, prev } = paginationData
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
-    const [selectedIndex, setSelectedIndex] = useState(1);
-    const openSort = Boolean(anchorEl);
+    const [selectedIndex, setSelectedIndex] = useState(1)
+    const openSort = Boolean(anchorEl)
  
     let options = [ 5, 10, 15, 25, 50 ]
 
@@ -40,12 +40,12 @@ const Pagination = (props: PaginationProps) => {
     }, [page, rowsPerPage])
 
     const openOptionsMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        setAnchorEl(event.currentTarget);
-    };
+        setAnchorEl(event.currentTarget)
+    }
     
     const handleCloseSortMenu = () => {
-        setAnchorEl(null);
-    };
+        setAnchorEl(null)
+    }
 
     const handleChangeOptions = (index: number) => {
         setSelectedIndex(index)

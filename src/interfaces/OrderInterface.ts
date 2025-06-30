@@ -1,4 +1,4 @@
-import { type IAdvertisement } from "./AdvertisementInterfsace";
+import { type IAdvertisement } from "./AdvertisementInterfsace"
 
 export interface IOrders {
     id: string;

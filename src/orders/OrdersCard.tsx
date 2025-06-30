@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import HideImageIcon from '@mui/icons-material/HideImage';
-import Modal from '@mui/material/Modal';
+import HideImageIcon from '@mui/icons-material/HideImage'
+import Modal from '@mui/material/Modal'
 import ModalListAdv from "./ModalListAdv"
-import { type IOrders } from '../interfaces';
+import { type IOrders } from '../interfaces'
 
 type OrdersCardProps = {
     data: IOrders;
@@ -30,7 +30,7 @@ const OrdersCard = (props: OrdersCardProps) => {
         [4, "Доставлен"],
         [5, "Архивировано"],
         [6, "Возврат"],
-    ]);
+    ])
 
 
     const dataStyle = "text-m font-medium text-gray-500"

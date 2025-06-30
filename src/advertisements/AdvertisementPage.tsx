@@ -1,15 +1,15 @@
-import { useParams } from 'react-router';
-import { useState, useEffect } from 'react';
-import HideImageIcon from '@mui/icons-material/HideImage';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import Modal from '@mui/material/Modal';
+import { useParams } from 'react-router'
+import { useState, useEffect } from 'react'
+import HideImageIcon from '@mui/icons-material/HideImage'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+import Modal from '@mui/material/Modal'
 import CreateAdvertisement from './modalCreateAdvertisement'
-import ApiService from '../services/api-service';
-import { type IAdvertisement } from '../interfaces';
+import ApiService from '../services/api-service'
+import { type IAdvertisement } from '../interfaces'
 
 /*
     TODO:
@@ -28,7 +28,7 @@ const AdvertisementPage = () => {
         fetchFunc()
     }
 
-    let { id } = useParams();
+    let { id } = useParams()
 
     const fetchFunc = async () => {
         if( id ) {

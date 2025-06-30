@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import Pagination from '../components/Pagination';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { useState, useEffect } from 'react'
+import Pagination from '../components/Pagination'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 import OrdersList from './OrdersList'
-import type { IOrders, IPaginationData } from '../interfaces';
-import ApiService from '../services/api-service';
+import type { IOrders, IPaginationData } from '../interfaces'
+import ApiService from '../services/api-service'
 
 const Orders = () => {
 
     const [orders, setOrders] = useState<IOrders[]>([])
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [page, setPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(10)
+    const [page, setPage] = useState(1)
     const [paginationData, setPaginationData] = useState<IPaginationData>({
         first: null,
         items: null,
@@ -23,13 +23,13 @@ const Orders = () => {
 
 
     const handleChangePage = (newPage: number) => {
-        setPage(newPage);
-    };
+        setPage(newPage)
+    }
 
     const handleChangeRowsPerPage = (rowsPerPage: number) => {
         setRowsPerPage(rowsPerPage)
         setPage(1)
-    };
+    }
 
 
     let priceSort = [
@@ -37,22 +37,22 @@ const Orders = () => {
         "По возрастанию",
     ]
 
-    const [anchorElPrice, setAnchorElPrice] = useState<HTMLButtonElement | null>(null);
+    const [anchorElPrice, setAnchorElPrice] = useState<HTMLButtonElement | null>(null)
     const [selectedPriceSort, setSelectedPriceSort] = useState(0)
     const openPrice = Boolean(anchorElPrice)
 
     const openPriceMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        setAnchorElPrice(event.currentTarget);
-    };
+        setAnchorElPrice(event.currentTarget)
+    }
 
     const handleClosePriceMenu = () => {
-        setAnchorElPrice(null);
-    };
+        setAnchorElPrice(null)
+    }
 
     
     const handleMenuPriceClick = (index: number) => {
-        setSelectedPriceSort(index);
-        setAnchorElPrice(null);
+        setSelectedPriceSort(index)
+        setAnchorElPrice(null)
     }
 
     const orderStatus = [
@@ -66,21 +66,21 @@ const Orders = () => {
         "Все"
     ]
 
-    const [anchorElStatus, setAnchorElStatus] = useState<HTMLButtonElement | null>(null);
-    const [selectedStatus, setSelectedStatus] = useState(7);
-    const openStatus = Boolean(anchorElStatus);
+    const [anchorElStatus, setAnchorElStatus] = useState<HTMLButtonElement | null>(null)
+    const [selectedStatus, setSelectedStatus] = useState(7)
+    const openStatus = Boolean(anchorElStatus)
     const openSortMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        setAnchorElStatus(event.currentTarget);
-    };
+        setAnchorElStatus(event.currentTarget)
+    }
 
     const handleCloseSortMenu = () => {
-        setAnchorElStatus(null);
-    };
+        setAnchorElStatus(null)
+    }
 
     
     const handleMenuStatusClick = (index: number) => {
-        setSelectedStatus(index);
-        setAnchorElStatus(null);
+        setSelectedStatus(index)
+        setAnchorElStatus(null)
     }
 
 //http://localhost:3000/orders?_page=1&_per_page=5&_sort=-total&status=0
@@ -177,5 +177,5 @@ const Orders = () => {
     )
 }
 
-export default Orders;
+export default Orders
 

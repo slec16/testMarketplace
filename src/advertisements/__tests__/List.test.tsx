@@ -1,7 +1,7 @@
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import List from "../List";
-import { type IAdvertisement } from "../../interfaces";
+import { render, screen } from "@testing-library/react"
+import "@testing-library/jest-dom"
+import List from "../List"
+import { type IAdvertisement } from "../../interfaces"
 
 // Мокаем компонент Card для изоляции тестов
 jest.mock("../Card", () => ({
@@ -13,7 +13,7 @@ jest.mock("../Card", () => ({
             <img src={data.imageUrl} alt={data.name} />
         </div>
     )
-}));
+}))
 
 describe("List Component", () => {
     const mockAds: IAdvertisement[] = [
@@ -37,7 +37,7 @@ describe("List Component", () => {
             likes: 21,
             imageUrl: "/camera.jpg"
         }
-    ];
+    ]
 
     const mockFilteredAds: IAdvertisement[] = [
         {
@@ -50,7 +50,7 @@ describe("List Component", () => {
             likes: 45,
             imageUrl: "/watch.jpg"
         }
-    ];
+    ]
 
     it("renders all advertisements when no filters are applied", () => {
         render(
@@ -58,13 +58,13 @@ describe("List Component", () => {
                 arrayOfAdvertisements={mockAds}
                 arrayOfFiltered={mockAds}
             />
-        );
+        )
 
-        const cards = screen.getAllByTestId("card");
-        expect(cards).toHaveLength(2);
-        expect(screen.getByText("Premium Bike")).toBeInTheDocument();
-        expect(screen.getByText("Vintage Camera")).toBeInTheDocument();
-    });
+        const cards = screen.getAllByTestId("card")
+        expect(cards).toHaveLength(2)
+        expect(screen.getByText("Premium Bike")).toBeInTheDocument()
+        expect(screen.getByText("Vintage Camera")).toBeInTheDocument()
+    })
 
     it("renders only filtered advertisements when filters are applied", () => {
         render(
@@ -72,13 +72,13 @@ describe("List Component", () => {
                 arrayOfAdvertisements={mockAds}
                 arrayOfFiltered={mockFilteredAds}
             />
-        );
+        )
 
-        const cards = screen.getAllByTestId("card");
-        expect(cards).toHaveLength(1);
-        expect(screen.getByText("Designer Watch")).toBeInTheDocument();
-        expect(screen.queryByText("Premium Bike")).not.toBeInTheDocument();
-    });
+        const cards = screen.getAllByTestId("card")
+        expect(cards).toHaveLength(1)
+        expect(screen.getByText("Designer Watch")).toBeInTheDocument()
+        expect(screen.queryByText("Premium Bike")).not.toBeInTheDocument()
+    })
 
     it("renders nothing when both arrays are empty", () => {
         render(
@@ -86,10 +86,10 @@ describe("List Component", () => {
                 arrayOfAdvertisements={[]}
                 arrayOfFiltered={[]}
             />
-        );
+        )
 
-        expect(screen.queryByTestId("card")).not.toBeInTheDocument();
-    });
+        expect(screen.queryByTestId("card")).not.toBeInTheDocument()
+    })
 
     it("displays correct price and image in cards", () => {
         render(
@@ -97,10 +97,10 @@ describe("List Component", () => {
                 arrayOfAdvertisements={mockAds}
                 arrayOfFiltered={mockAds}
             />
-        );
+        )
 
-        expect(screen.getByText("Price: $450")).toBeInTheDocument();
-        expect(screen.getByText("Price: $120")).toBeInTheDocument();
-        expect(screen.getByAltText("Premium Bike")).toHaveAttribute("src", "/bike.jpg");
-    });
-});
+        expect(screen.getByText("Price: $450")).toBeInTheDocument()
+        expect(screen.getByText("Price: $120")).toBeInTheDocument()
+        expect(screen.getByAltText("Premium Bike")).toHaveAttribute("src", "/bike.jpg")
+    })
+})

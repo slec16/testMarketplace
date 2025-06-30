@@ -45,6 +45,10 @@ export default [
       // Базовые правила
       'no-console': 'warn', // Предупреждаем об использовании console.log
       'no-unused-vars': 'off', // Отключаем встроенное правило (заменит TypeScript)
+      'semi': ['error', 'never'],
+      // 'no-console': ['error', {
+      //   allow: ['warn', 'error']
+      // }],
 
       // TypeScript правила
       '@typescript-eslint/no-unused-vars': 'warn', // Лучшая проверка неиспользуемых переменных

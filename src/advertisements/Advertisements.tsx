@@ -1,30 +1,30 @@
-import  { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react'
 import List from "./List"
-import { Input } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import Modal from '@mui/material/Modal';
-import IconButton from '@mui/material/IconButton';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import InputAdornment from '@mui/material/InputAdornment';
-import useInput from '../hooks/useInput';
+import { Input } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import Modal from '@mui/material/Modal'
+import IconButton from '@mui/material/IconButton'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import InputAdornment from '@mui/material/InputAdornment'
+import useInput from '../hooks/useInput'
 import CreateAdvertisement from './modalCreateAdvertisement'
-import Tooltip from '@mui/material/Tooltip';
-import SortIcon from '@mui/icons-material/Sort';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import Pagination from '../components/Pagination';
-import { type IAdvertisement } from '../interfaces';
-import { type IPaginationData } from '../interfaces';
-import ApiService from '../services/api-service';
+import Tooltip from '@mui/material/Tooltip'
+import SortIcon from '@mui/icons-material/Sort'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Snackbar from '@mui/material/Snackbar'
+import Alert from '@mui/material/Alert'
+import Pagination from '../components/Pagination'
+import { type IAdvertisement } from '../interfaces'
+import { type IPaginationData } from '../interfaces'
+import ApiService from '../services/api-service'
 
 const Advertisements = () => {
 
     const [adv, setAdv] = useState<IAdvertisement[]>([])
     const [filtered, setFiltered] = useState<IAdvertisement[]>([])
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [page, setPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(10)
+    const [page, setPage] = useState(1)
     const [paginationData, setPaginationData] = useState<IPaginationData>({
         first: null,
         items: null,
@@ -36,10 +36,10 @@ const Advertisements = () => {
 
     const searchInput = useInput()
 
-    const [open, setOpen] = useState(false);
-    const openModal = () => setOpen(true);
+    const [open, setOpen] = useState(false)
+    const openModal = () => setOpen(true)
     const handleClose = () => {
-        setOpen(false);
+        setOpen(false)
         fetchFunc()
     }
 
@@ -60,21 +60,21 @@ const Advertisements = () => {
         'views'
     ]
 
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const openSort = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+    const [selectedIndex, setSelectedIndex] = useState(0)
+    const openSort = Boolean(anchorEl)
     const openSortMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        setAnchorEl(event.currentTarget);
-    };
+        setAnchorEl(event.currentTarget)
+    }
 
     const handleMenuItemClick = (index: number) => {
-        setSelectedIndex(index);
-        setAnchorEl(null);
-    };
+        setSelectedIndex(index)
+        setAnchorEl(null)
+    }
 
     const handleCloseSortMenu = () => {
-        setAnchorEl(null);
-    };
+        setAnchorEl(null)
+    }
 
     const fetchFunc = async () => {
         const response = await ApiService.getAdvertisements(page, rowsPerPage, options[selectedIndex])
@@ -104,13 +104,13 @@ const Advertisements = () => {
     }, [searchInput.value.length, adv])
 
     const handleChangePage = (newPage: number) => {
-        setPage(newPage);
-    };
+        setPage(newPage)
+    }
 
     const handleChangeRowsPerPage = (rowsPerPage: number) => {
         setRowsPerPage(rowsPerPage)
         setPage(1)
-    };
+    }
 
 
     return (
@@ -211,4 +211,4 @@ const Advertisements = () => {
     )
 }
 
-export default Advertisements;
+export default Advertisements

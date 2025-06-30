@@ -19,7 +19,7 @@ export class HttpService {
     }
 
     protected async post(path: string, body: any) {
-        const stringifiedData = JSON.stringify(body);
+        const stringifiedData = JSON.stringify(body)
 
         const response = await fetch(`${this.baseApi}/${path}`, {
             method: 'POST',
@@ -27,7 +27,7 @@ export class HttpService {
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
+        })
 
         // return response.json();
         return this._handleResponse(response)
@@ -49,7 +49,7 @@ export class HttpService {
     }
 
     protected async patch(path: string, body: any) {
-        const stringifiedData = JSON.stringify(body);
+        const stringifiedData = JSON.stringify(body)
 
         const response = await fetch(`${this.baseApi}/${path}`, {
             method: 'PATCH',
@@ -57,7 +57,7 @@ export class HttpService {
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
+        })
 
         // return response.json();
         return this._handleResponse(response)

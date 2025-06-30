@@ -1,6 +1,6 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import ChatIcon from '@mui/icons-material/Chat';
-import { blue } from '@mui/material/colors';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ChatIcon from '@mui/icons-material/Chat'
+import { blue } from '@mui/material/colors'
 
 function Header(){
     return (
