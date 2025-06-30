@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Card from "./Card"
 import { type IAdvertisement } from "../interfaces"
 
@@ -29,10 +31,9 @@ const List = (props: ListProps) => {
             />
         )
     })
-
     
     return(
-        <div className="flex flex-col gap-y-2 h-full ">
+        <div className="flex flex-wrap justify-around w-4/5 gap-y-2 h-fше">
             {listOfAdv}
         </div>
     )

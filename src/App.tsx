@@ -14,7 +14,7 @@ function App() {
 
 
     return (
-        <div>
+        <div className='h-screen overflow-hidden'>
             <Wrapper>
 
                 <Header></Header>
@@ -26,7 +26,9 @@ function App() {
                     <Route path='/orders' element={<Orders />}/>
                     <Route path='/advertisements/:id' element={<AdvertisementPage />} />
                 </Routes>
-
+                
+                {/* footer */}
+                <div className='w-full h-7'>footer</div>
             </Wrapper>
 
         </div>

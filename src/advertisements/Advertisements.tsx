@@ -118,7 +118,7 @@ const Advertisements = () => {
 
 
     return (
-        <div>
+        <div className=''>
             <div className='bg-slate-200 rounded-lg mb-5 grid grid-cols-3 justify-items-stretch gap-0'>
                 <div className='flex items-center ml-3 justify-between'>
                     <Input
@@ -191,10 +191,12 @@ const Advertisements = () => {
     
             </div>
             {adv.length !== 0 && 
-                <List
-                    arrayOfAdvertisements={adv}
-                    arrayOfFiltered={filtered}
-                />
+                <div className='flex justify-center py-2 bg-slate-50 rounded-xl overflow-auto h-screen p-10'>
+                    <List
+                        arrayOfAdvertisements={adv}
+                        arrayOfFiltered={filtered}
+                    />
+                </div>
             }
             <Snackbar
                     anchorOrigin={{ vertical: "bottom", horizontal: "right" }}

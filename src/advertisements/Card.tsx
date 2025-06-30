@@ -2,7 +2,7 @@ import {
   Link,
 } from 'react-router';
 import HideImageIcon from '@mui/icons-material/HideImage';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { type IAdvertisement } from '../interfaces';
 
@@ -18,8 +18,8 @@ const Card = (props: CardProps) => {
     const collapseText = (text: string) => {
         if ( text ) {
             let expText = ''
-            if ( text.length > 50 ) {
-                expText = text.slice(0, 50) + "..."
+            if ( text.length > 300 ) {
+                expText = text.slice(0, 300) + "..."
                 return expText
             }
             return text
@@ -30,10 +30,12 @@ const Card = (props: CardProps) => {
 
     return(
         <Link to={`/advertisements/${id}`} >
-            <div 
-                className="border border-slate-50 rounded-md flex flex-row p-3 bg-slate-50 hover:bg-slate-200"
+            <div
+                className=" border border-slate-50 w-100 h-110 rounded-2xl bg-slate-200 hover:bg-slate-300 py-2 px-3"
             >
-                { imageUrl.length == 0 ? 
+                <div className='h-full flex flex-col justify-between '>
+                    <div>
+                        { imageUrl.length == 0 ? 
                     <div className='flex w-48 h-32 border border-blue-200 rounded-lg items-center justify-center'>
                         <HideImageIcon 
                             fontSize='large'
@@ -45,25 +47,27 @@ const Card = (props: CardProps) => {
                         <img src={imageUrl} alt="Your Image" className="object-contain" />
                     </div>
                 }
-                <div className="flex flex-col px-3 justify-between w-full">
-                    <div>
+                        {/* name + desc */}
                         <h1
                             className="text-2xl text-slate-700 font-bold mb-2"
                         >{ name }</h1>
                         <p>{ collapseText( description ) }</p>
                     </div>
-                    <div className="flex flex-row justify-between">
-                        <div className="flex flex-row">
-                            <div className="mr-5 flex items-center">
-                                <VisibilityIcon color="info" className='mr-1 opacity-50' />
-                                { views }
+                    <div>
+                        {/* likes + price */}
+                        <div className="flex flex-row justify-between">
+                            <div className="flex flex-row">
+                                <div className="mr-5 flex items-center">
+                                    <VisibilityIcon color="info" className='mr-1 opacity-50' />
+                                    { views }
+                                </div>
+                                <div className="flex items-center">
+                                    <FavoriteIcon color="info" className='mr-1 opacity-50' />
+                                    { likes }
+                                </div>
                             </div>
-                            <div className="flex items-center">
-                                <ThumbUpIcon color="info" className='mr-1 opacity-50' />
-                                { likes }
-                            </div>
+                            <h3 className="text-xl font-medium text-gray-500">{ price }₽</h3>
                         </div>
-                        <h3 className="text-xl font-medium text-gray-500">{ price }₽</h3>
                     </div>
                 </div>
             </div>
