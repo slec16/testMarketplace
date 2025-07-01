@@ -118,7 +118,7 @@ const Advertisements = () => {
 
 
     return (
-        <div className='flex-1 flex flex-col overflow-hidden px-20'>
+        <div className='flex-1 flex flex-col overflow-hidden px-20 pb-5'>
             <div className='bg-slate-200 rounded-lg mb-5 grid grid-cols-3 justify-items-stretch gap-0'>
                 <div className='flex items-center ml-3 justify-between'>
                     <Input
@@ -191,8 +191,7 @@ const Advertisements = () => {
     
             </div>
             {adv.length !== 0 && 
-                <div className='flex flex-1 overflow-y-auto justify-center py-2 bg-slate-50 rounded-xl   p-10'>
-                    {/* высота не скрин */}
+                <div className='flex flex-1 overflow-y-auto justify-center bg-slate-50 rounded-xl'>
                     <List
                         arrayOfAdvertisements={adv}
                         arrayOfFiltered={filtered}

@@ -31,7 +31,7 @@ const Card = (props: CardProps) => {
     return(
         <Link to={`/advertisements/${id}`} >
             <div
-                className=" border border-slate-50 w-100 h-110 rounded-2xl bg-slate-200 hover:bg-slate-300 py-2 px-3"
+                className="first:mt-3 last:mb-3 border border-slate-50 w-100 h-110 rounded-2xl bg-slate-200 hover:bg-slate-300 py-2 px-3"
             >
                 <div className='h-full flex flex-col justify-between '>
                     <div>
@@ -43,8 +43,8 @@ const Card = (props: CardProps) => {
                                 />
                             </div>
                             :
-                            <div className="w-48 h-32 rounded-lg overflow-hidden">          
-                                <img src={imageUrl} alt="Your Image" className="object-contain" />
+                            <div className="w-48 h-32 rounded-lg overflow-hidden justify-center">          
+                                <img src={imageUrl} alt="Your Image" className="object-cover" onError={() => console.log("alt image ", name)}/>
                             </div>
                         }
                         {/* name + desc */}
