@@ -36,17 +36,17 @@ const Card = (props: CardProps) => {
                 <div className='h-full flex flex-col justify-between '>
                     <div>
                         { imageUrl.length == 0 ? 
-                    <div className='flex w-48 h-32 border border-blue-200 rounded-lg items-center justify-center'>
-                        <HideImageIcon 
-                            fontSize='large'
-                            color='primary'
-                        />
-                    </div>
-                    :
-                    <div className="w-48 h-32 rounded-lg overflow-hidden">          
-                        <img src={imageUrl} alt="Your Image" className="object-contain" />
-                    </div>
-                }
+                            <div className='flex w-48 h-32 border border-blue-200 rounded-lg items-center justify-center'>
+                                <HideImageIcon 
+                                    fontSize='large'
+                                    color='primary'
+                                />
+                            </div>
+                            :
+                            <div className="w-48 h-32 rounded-lg overflow-hidden">          
+                                <img src={imageUrl} alt="Your Image" className="object-contain" />
+                            </div>
+                        }
                         {/* name + desc */}
                         <h1
                             className="text-2xl text-slate-700 font-bold mb-2"
