@@ -54,6 +54,7 @@ const CreateAdvertisement = (props: CreateAdvertisementProps) => {
         }
         await ApiService.postAdvertisements(body, controller.signal)
         openSnackBar(true)
+        onClose && onClose()
     }
 
     const updateAdvertisement = async () => {

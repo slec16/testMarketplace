@@ -42,6 +42,7 @@ const Advertisements = () => {
     const [open, setOpen] = useState(false);
     const openModal = () => setOpen(true);
     const handleClose = () => {
+        console.log('close modal')
         setOpen(false);
         fetchFunc()
     }
@@ -171,13 +172,13 @@ const Advertisements = () => {
                     </div>
                     <div></div>
                 </div>
-                {/* TODO: Закрывать после создания*/}
                 <Modal
                     open={open}
                     onClose={handleClose}
                 >
                     <CreateAdvertisement 
                         openSnackBar={handleSnackBarOpen}
+                        onClose={handleClose}
                     />
                 </Modal>
 
