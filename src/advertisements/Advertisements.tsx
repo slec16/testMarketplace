@@ -20,6 +20,8 @@ import { type IPaginationData } from '../interfaces';
 import ApiService from '../services/api-service';
 import { useAbortController } from '../hooks/useAbortController';
 
+// TODO: add loaders
+
 const Advertisements = () => {
 
     const [adv, setAdv] = useState<IAdvertisement[]>([])

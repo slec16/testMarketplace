@@ -12,12 +12,6 @@ import ApiService from '../services/api-service';
 import { useAbortController } from '../hooks/useAbortController';
 import { type IAdvertisement } from '../interfaces';
 
-/*
-    TODO:
-    При переходе с роута объявы обранто в список сохранять в локал сторадже
-    параметры поиска
-
-*/
 
 const AdvertisementPage = () => {
 
@@ -75,7 +69,7 @@ const AdvertisementPage = () => {
                             />
                         </div>
                         :
-                        <div className="w-1/3 mr-2 rounded-lg overflow-hidden">          
+                        <div className="w-1/3 mr-2 border border-blue-200 rounded-lg overflow-hidden">          
                             <img src={product.imageUrl} alt="Your Image" className="object-contain" />
                         </div>
                     }
