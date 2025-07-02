@@ -109,7 +109,7 @@ const Orders = () => {
 
 
     return (
-        <div className='flex-1 flex flex-col overflow-hidden xl:px-20 pb-5'>
+        <div className='flex-1 flex flex-col overflow-hidden px-20 pb-5'>
             <div className="h-15 bg-slate-200 rounded-lg mb-5 flex flex-row items-center px-3">
                 <p className='mr-1'>Статус:</p>
                 <button 
