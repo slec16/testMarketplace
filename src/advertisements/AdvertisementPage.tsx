@@ -68,14 +68,14 @@ const AdvertisementPage = () => {
                     className={`rounded-md flex flex-row p-3 ${isDeleted ? "opacity-50" : "" }`}
                 >
                     { !product.imageUrl ? 
-                        <div className='flex w-48 h-32 border border-blue-200 rounded-lg items-center justify-center'>
+                        <div className='flex w-1/3 h-60 mr-2 border border-blue-200 rounded-lg items-center justify-center'>
                             <HideImageIcon 
                                 fontSize='large'
                                 color='primary'
                             />
                         </div>
                         :
-                        <div className="w-48 h-32 rounded-lg overflow-hidden">          
+                        <div className="w-1/3 mr-2 rounded-lg overflow-hidden">          
                             <img src={product.imageUrl} alt="Your Image" className="object-contain" />
                         </div>
                     }
@@ -94,7 +94,7 @@ const AdvertisementPage = () => {
                                     </IconButton>
                                 </div>
                             </div>
-                            <p>{ product.description }</p>
+                            <p className='mb-3'>{ product.description }</p>
                         </div>
                         <div className="flex flex-row justify-between">
                             <div className="flex flex-row">

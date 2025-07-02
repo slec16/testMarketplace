@@ -41,7 +41,7 @@ function App() {
         //         <Route path='/advertisements/:id' element={<AdvertisementPage />} />
         //     </Routes>
         // </Layout>
-        <div className='flex flex-col h-screen overflow-hidden px-15'>
+        <div className='flex flex-col h-screen overflow-hidden xl:px-15'>
             <Header></Header>
             <TabsRouter></TabsRouter>
             <div className='flex-1 flex flex-col overflow-hidden '>
