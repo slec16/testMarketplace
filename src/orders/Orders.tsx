@@ -109,9 +109,9 @@ const Orders = () => {
 
 
     return (
-        <div>
-            <div className="bg-slate-200 rounded-lg mb-5 flex flex-row items-center px-2">
-                <p className='mr-1 '>Статус:</p>
+        <div className='flex-1 flex flex-col overflow-hidden xl:px-20 pb-5'>
+            <div className="h-15 bg-slate-200 rounded-lg mb-5 flex flex-row items-center px-3">
+                <p className='mr-1'>Статус:</p>
                 <button 
                     className='underline mr-3 text-sky-400'
                     onClick={openSortMenu}
@@ -161,7 +161,7 @@ const Orders = () => {
                         </MenuItem>
                     ))}
                 </Menu>
-                <div className="ml-auto mr-0">
+                <div className="ml-auto mr-0 w-1/3">
                     <Pagination
                         onPageChange={handleChangePage}
                         onRowsPerPageChange={handleChangeRowsPerPage}
@@ -172,9 +172,11 @@ const Orders = () => {
                 </div>
             </div>
             {orders.length !== 0 &&
-                <OrdersList 
-                    orders={orders}
-                />                
+                <div className='flex flex-1 overflow-y-auto justify-center bg-slate-50 rounded-xl'>
+                    <OrdersList 
+                        orders={orders}
+                    />                
+                </div>
             }
         </div>
     )

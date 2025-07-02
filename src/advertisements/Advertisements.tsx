@@ -122,7 +122,7 @@ const Advertisements = () => {
 
     return (
         <div className='flex-1 flex flex-col overflow-hidden xl:px-20 pb-5'>
-            <div className='bg-slate-200 rounded-lg mb-5 grid grid-cols-3 justify-items-stretch gap-0'>
+            <div className='h-15 bg-slate-200 rounded-lg mb-5 grid grid-cols-3 justify-items-stretch gap-0'>
                 <div className='flex items-center ml-3 justify-between'>
                     <Input
                         {...searchInput}

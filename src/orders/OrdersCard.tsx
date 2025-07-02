@@ -41,8 +41,8 @@ const OrdersCard = (props: OrdersCardProps) => {
         <>
             <div
                 onClick={openOrderModal}
-                className="border border-slate-50 rounded-md flex flex-row p-3 bg-slate-50 hover:bg-slate-200"
-            >
+                className="first:mt-3 last:mb-3 rounded-md flex flex-row p-3 bg-slate-50 hover:bg-slate-200 border border-blue-200"
+            > 
                 <div className="rounded-lg bg-slate-100 w-96 h-72 flex flex-row justify-between flex-wrap p-2">
                     {items.map((item, index) => {
                         if(index < 3) {   

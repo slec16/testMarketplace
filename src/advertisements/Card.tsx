@@ -8,7 +8,8 @@ import { type IAdvertisement } from '../interfaces';
 
 type CardProps = {
     data: IAdvertisement;
-    key: string
+    key: string;
+    fromOrders?: boolean
 }
 
 const Card = (props: CardProps) => {
@@ -27,11 +28,13 @@ const Card = (props: CardProps) => {
         return null
     }
 
-
     return(
         <Link to={`/advertisements/${id}`} >
             <div
-                className="first:mt-3 last:mb-3 border border-slate-100 w-100 h-130 rounded-2xl bg-slate-200 hover:bg-slate-300 py-2 px-3"
+                className={
+                    "first:mt-3 last:mb-3 border border-slate-100  rounded-2xl bg-slate-200 hover:bg-slate-300 py-2 px-3"+
+                    ` ${props.fromOrders ? 'w-90 h-120' : 'w-100 h-130'} `
+                }
             >
                 <div className='h-full w-full flex flex-col'>
                     <div className='h-1/2 p-2'>
