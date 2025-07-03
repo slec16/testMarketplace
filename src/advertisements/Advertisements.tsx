@@ -19,10 +19,25 @@ import { type IAdvertisement } from '../interfaces';
 import { type IPaginationData } from '../interfaces';
 import ApiService from '../services/api-service';
 import { useAbortController } from '../hooks/useAbortController';
+import useQueryParams  from '../hooks/useQueryParams'
 
 // TODO: add loaders
 
 const Advertisements = () => {
+    console.log("mount adv comp")
+    const { 
+        getQueryParam, 
+        setQueryParams, 
+        // removeQueryParam 
+        } = useQueryParams();
+
+    // useEffect(() => {
+    //     setQueryParams({
+    //         '_page': '2',
+    //         '_per_page': '10',
+    //         '_sort': ''
+    //     })
+    // }, [])
 
     const [adv, setAdv] = useState<IAdvertisement[]>([])
     const [filtered, setFiltered] = useState<IAdvertisement[]>([])
@@ -112,6 +127,9 @@ const Advertisements = () => {
 
     const handleChangePage = (newPage: number) => {
         setPage(newPage);
+        setQueryParams({
+            '_page': newPage.toString()
+        })
     };
 
     const handleChangeRowsPerPage = (rowsPerPage: number) => {
