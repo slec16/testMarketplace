@@ -20,25 +20,24 @@ import { type IPaginationData } from '../interfaces';
 import ApiService from '../services/api-service';
 import { useAbortController } from '../hooks/useAbortController';
 import useQueryParams  from '../hooks/useQueryParams'
+import useParams from '../hooks/testUseQueryParams';
+import { useLocation, useNavigate } from 'react-router';
+
 
 // TODO: add loaders
 
 const Advertisements = () => {
-    console.log("mount adv comp")
-    const { 
-        getQueryParam, 
-        setQueryParams, 
-        // removeQueryParam 
-        } = useQueryParams();
-
-    // useEffect(() => {
-    //     setQueryParams({
-    //         '_page': '2',
-    //         '_per_page': '10',
-    //         '_sort': ''
-    //     })
-    // }, [])
-
+    // const { getQueryParam, setQueryParams, saveParamsBeforeLeave, getCurrentParams } = useQueryParams()
+    const navigate = useNavigate();
+    const optionsQuery = useParams({
+        '_page': '1',
+        '_per_page': '10'
+    })
+    // useParams({
+        // '_page': '1',
+        // '_per_page': '10'
+    // })
+    // const params = getCurrentParams()
     const [adv, setAdv] = useState<IAdvertisement[]>([])
     const [filtered, setFiltered] = useState<IAdvertisement[]>([])
     const { createAbortController } = useAbortController();
@@ -98,6 +97,13 @@ const Advertisements = () => {
     };
 
     const fetchFunc = async () => {
+        setTimeout(() => {
+            navigate({
+                pathname: '/advertisements',
+                search: new URLSearchParams({page: '1', perPage: '10'}).toString()
+            })
+
+        }, 1000)
         const response = await ApiService.getAdvertisements(page, rowsPerPage, options[selectedIndex], controller.signal)
         console.log(response)
         setAdv(response.data)
@@ -110,7 +116,18 @@ const Advertisements = () => {
             prev: response.prev
         }
         setPaginationData(pagination)
+        
+        
     }
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //                 navigate({
+    //         pathname: '/advertisements',
+    //         search: new URLSearchParams({page: '1', perPage: '10'}).toString()
+    //     }, { replace: true });
+    //     }, 100)
+    // }, [])
 
     useEffect(() => {
         fetchFunc()
@@ -127,9 +144,9 @@ const Advertisements = () => {
 
     const handleChangePage = (newPage: number) => {
         setPage(newPage);
-        setQueryParams({
-            '_page': newPage.toString()
-        })
+        // setQueryParams({
+        //     '_page': newPage.toString()
+        // })
     };
 
     const handleChangeRowsPerPage = (rowsPerPage: number) => {
