@@ -20,10 +20,8 @@ const Pagination = (props: PaginationProps) => {
     
     const { items, next, prev } = paginationData
 
-    const [currentPage, setCurrentPage] = useState(1)
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-    const [selectedIndex, setSelectedIndex] = useState(1);
     const openSort = Boolean(anchorEl);
  
     let options = [ 5, 10, 15, 25, 50 ]
@@ -47,22 +45,17 @@ const Pagination = (props: PaginationProps) => {
         setAnchorEl(null);
     };
 
-    const handleChangeOptions = (index: number) => {
-        setSelectedIndex(index)
-        onRowsPerPageChange(options[index])
+    const handleChangeOptions = (newPerPage: number) => {
+        onRowsPerPageChange(newPerPage)
     }
 
     const prevPage = () => {
-        if(currentPage === 1) return
-        let tempPage = currentPage-1
-        onPageChange(tempPage)
-        setCurrentPage(tempPage)
+        if(page === 1) return
+        onPageChange(page-1)
     }
 
-    const nextPage = () => {
-        let tempPage = currentPage+1        
-        onPageChange(tempPage)
-        setCurrentPage(tempPage)
+    const nextPage = () => {    
+        onPageChange(page+1)
     }
 
 
@@ -74,7 +67,7 @@ const Pagination = (props: PaginationProps) => {
                     className='hover:bg-slate-300 px-3 rounded-full text-sky-400'
                     onClick={ (e) => openOptionsMenu(e) }
                 >
-                    {options[selectedIndex]}
+                    {rowsPerPage}
                 </button>
             </div>
 
@@ -87,11 +80,11 @@ const Pagination = (props: PaginationProps) => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {options.map((option, index) => (
+                {options.map((option) => (
                     <MenuItem
                         key={option}
-                        selected={index === selectedIndex}
-                        onClick={() => handleChangeOptions(index)}
+                        selected={option === rowsPerPage}
+                        onClick={() => handleChangeOptions(option)}
                     >
                         {option}
                     </MenuItem>

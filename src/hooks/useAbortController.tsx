@@ -12,6 +12,17 @@ export const useAbortController = () => {
         return controller;
     };
 
+    const abortSpecificController = (controllerToAbort: AbortController) => {
+        console.log(controllerToAbort)
+        abortControllers.current = abortControllers.current.filter(controller => {
+            if (controller === controllerToAbort) {
+                controller.abort();
+                return false;
+            }
+            return true;
+        });
+    };
+
     useEffect(() => {
         return () => {
             abortControllers.current.forEach(controller => {
@@ -19,7 +30,7 @@ export const useAbortController = () => {
             });
             abortControllers.current = [];
         };
-    }, [location]);
+    }, [location.pathname]);
 
-    return { createAbortController };
+    return { createAbortController, abortSpecificController };
 }

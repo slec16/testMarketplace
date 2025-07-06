@@ -19,31 +19,30 @@ import { type IAdvertisement } from '../interfaces';
 import { type IPaginationData } from '../interfaces';
 import ApiService from '../services/api-service';
 import { useAbortController } from '../hooks/useAbortController';
-import useQueryParams  from '../hooks/useQueryParams'
-import useParams from '../hooks/testUseQueryParams';
-import { useLocation, useNavigate } from 'react-router';
+import { useQueryParams } from '../hooks/useQueryParams'
 
 
 // TODO: add loaders
 
 const Advertisements = () => {
-    // const { getQueryParam, setQueryParams, saveParamsBeforeLeave, getCurrentParams } = useQueryParams()
-    const navigate = useNavigate();
-    const optionsQuery = useParams({
-        '_page': '1',
-        '_per_page': '10'
-    })
-    // useParams({
-        // '_page': '1',
-        // '_per_page': '10'
-    // })
-    // const params = getCurrentParams()
+
+    const { queryParams, setQueryParams, getParam } = useQueryParams();
+
     const [adv, setAdv] = useState<IAdvertisement[]>([])
     const [filtered, setFiltered] = useState<IAdvertisement[]>([])
     const { createAbortController } = useAbortController();
     const controller = createAbortController();
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [page, setPage] = useState(1);
+
+    const page = getParam('page') || '1';
+    const perPage = getParam('perPage') || '10';
+    const sortOption = getParam('sort') || ''
+
+    useEffect(() => {
+        if (!queryParams.toString()) {
+            setQueryParams({ page, perPage });
+        }
+    }, []);
+
     const [paginationData, setPaginationData] = useState<IPaginationData>({
         first: null,
         items: null,
@@ -81,14 +80,13 @@ const Advertisements = () => {
     ]
 
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-    const [selectedIndex, setSelectedIndex] = useState(0);
     const openSort = Boolean(anchorEl);
     const openSortMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorEl(event.currentTarget);
     };
 
     const handleMenuItemClick = (index: number) => {
-        setSelectedIndex(index);
+        setQueryParams({ sort: options[index] });
         setAnchorEl(null);
     };
 
@@ -96,15 +94,15 @@ const Advertisements = () => {
         setAnchorEl(null);
     };
 
-    const fetchFunc = async () => {
-        setTimeout(() => {
-            navigate({
-                pathname: '/advertisements',
-                search: new URLSearchParams({page: '1', perPage: '10'}).toString()
-            })
+    useEffect(() => {
+        fetchFunc()
+    }, [page, perPage, sortOption])
 
-        }, 1000)
-        const response = await ApiService.getAdvertisements(page, rowsPerPage, options[selectedIndex], controller.signal)
+
+
+    const fetchFunc = async () => {
+        console.log("change perpage", perPage)
+        const response = await ApiService.getAdvertisements(Number(page), Number(perPage), sortOption, controller.signal)
         console.log(response)
         setAdv(response.data)
         const pagination = {
@@ -117,21 +115,7 @@ const Advertisements = () => {
         }
         setPaginationData(pagination)
         
-        
     }
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //                 navigate({
-    //         pathname: '/advertisements',
-    //         search: new URLSearchParams({page: '1', perPage: '10'}).toString()
-    //     }, { replace: true });
-    //     }, 100)
-    // }, [])
-
-    useEffect(() => {
-        fetchFunc()
-    }, [page, rowsPerPage, selectedIndex])
 
 
     //search
@@ -143,15 +127,11 @@ const Advertisements = () => {
     }, [searchInput.value.length, adv])
 
     const handleChangePage = (newPage: number) => {
-        setPage(newPage);
-        // setQueryParams({
-        //     '_page': newPage.toString()
-        // })
+        setQueryParams({ page: String(newPage) });
     };
 
     const handleChangeRowsPerPage = (rowsPerPage: number) => {
-        setRowsPerPage(rowsPerPage)
-        setPage(1)
+        setQueryParams({ perPage: String(rowsPerPage), page: String(1) })
     };
 
 
@@ -186,7 +166,7 @@ const Advertisements = () => {
                     {options.map((option, index) => (
                         <MenuItem
                             key={option}
-                            selected={index === selectedIndex}
+                            selected={option === sortOption}
                             onClick={() => handleMenuItemClick( index )}
                         >
                             {option.length === 0 ? "-" : option}
@@ -194,9 +174,9 @@ const Advertisements = () => {
                     ))}
                 </Menu>
                 <div className="grid grid-cols-3 content-center">
-                    {options[selectedIndex] !== '-' ?
+                    {sortOption !== '' ?
                         <p className="justify-self-start flex items-center text-slate-600">
-                            {options[selectedIndex]}
+                            {sortOption}
                         </p> :
                         <div></div>
                     }
@@ -222,8 +202,8 @@ const Advertisements = () => {
                 <Pagination
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
+                    page={Number(page)}
+                    rowsPerPage={Number(perPage)}
                     paginationData={paginationData}
                 />
     
