@@ -10,3 +10,4 @@ const Wrapper = ({children}: LayoutProps) => {
     )
 }
 export default Wrapper
+

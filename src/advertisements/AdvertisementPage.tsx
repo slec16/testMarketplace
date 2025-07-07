@@ -8,19 +8,16 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import Modal from '@mui/material/Modal'
 import CreateAdvertisement from './modalCreateAdvertisement'
-import ApiService from '../services/api-service'
-import { type IAdvertisement } from '../interfaces'
+import ApiService from '../services/api-service';
+import { useAbortController } from '../hooks/useAbortController';
+import { type IAdvertisement } from '../interfaces';
 
-/*
-    TODO:
-    При переходе с роута объявы обранто в список сохранять в локал сторадже
-    параметры поиска
-
-*/
 
 const AdvertisementPage = () => {
 
     const [product, setProduct] = useState<IAdvertisement | null>(null)
+    const { createAbortController } = useAbortController()
+    const controller = createAbortController()
     const [isDeleted, setIsDeleted] = useState(false)
     const [openEditModal, setOpenEditModal] = useState(false)
     const handleClosaEditModal = () => {
@@ -32,7 +29,7 @@ const AdvertisementPage = () => {
 
     const fetchFunc = async () => {
         if( id ) {
-            const response = await ApiService.getAdvertisementsById(id)
+            const response = await ApiService.getAdvertisementsById(id, controller.signal)
             console.log(response)
             setProduct(response)
         }
@@ -49,7 +46,7 @@ const AdvertisementPage = () => {
     const deleteAdvertisement = async () => {
         if( id ) {
             console.log("delete")
-            const response = await ApiService.deleteAdvertisementsById(id)
+            const response = await ApiService.deleteAdvertisementsById(id, controller.signal)
             console.log(response)
             response && setIsDeleted(true)
         }
@@ -65,14 +62,14 @@ const AdvertisementPage = () => {
                     className={`rounded-md flex flex-row p-3 ${isDeleted ? "opacity-50" : "" }`}
                 >
                     { !product.imageUrl ? 
-                        <div className='flex w-48 h-32 border border-blue-200 rounded-lg items-center justify-center'>
+                        <div className='flex w-1/3 h-60 mr-2 border border-blue-200 rounded-lg items-center justify-center'>
                             <HideImageIcon 
                                 fontSize='large'
                                 color='primary'
                             />
                         </div>
                         :
-                        <div className="w-48 h-32 rounded-lg overflow-hidden">          
+                        <div className="w-1/3 mr-2 border border-blue-200 rounded-lg overflow-hidden">          
                             <img src={product.imageUrl} alt="Your Image" className="object-contain" />
                         </div>
                     }
@@ -91,7 +88,7 @@ const AdvertisementPage = () => {
                                     </IconButton>
                                 </div>
                             </div>
-                            <p>{ product.description }</p>
+                            <p className='mb-3'>{ product.description }</p>
                         </div>
                         <div className="flex flex-row justify-between">
                             <div className="flex flex-row">

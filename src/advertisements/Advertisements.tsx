@@ -8,23 +8,41 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import InputAdornment from '@mui/material/InputAdornment'
 import useInput from '../hooks/useInput'
 import CreateAdvertisement from './modalCreateAdvertisement'
-import Tooltip from '@mui/material/Tooltip'
-import SortIcon from '@mui/icons-material/Sort'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import Snackbar from '@mui/material/Snackbar'
-import Alert from '@mui/material/Alert'
-import Pagination from '../components/Pagination'
-import { type IAdvertisement } from '../interfaces'
-import { type IPaginationData } from '../interfaces'
-import ApiService from '../services/api-service'
+import Tooltip from '@mui/material/Tooltip';
+import SortIcon from '@mui/icons-material/Sort';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import Pagination from '../components/Pagination';
+import { type IAdvertisement } from '../interfaces';
+import { type IPaginationData } from '../interfaces';
+import ApiService from '../services/api-service';
+import { useAbortController } from '../hooks/useAbortController';
+import { useQueryParams } from '../hooks/useQueryParams'
+
+
+// TODO: add loaders
 
 const Advertisements = () => {
 
+    const { queryParams, setQueryParams, getParam } = useQueryParams();
+
     const [adv, setAdv] = useState<IAdvertisement[]>([])
     const [filtered, setFiltered] = useState<IAdvertisement[]>([])
-    const [rowsPerPage, setRowsPerPage] = useState(10)
-    const [page, setPage] = useState(1)
+    const { createAbortController } = useAbortController();
+    const controller = createAbortController();
+
+    const page = getParam('page') || '1';
+    const perPage = getParam('perPage') || '10';
+    const sortOption = getParam('sort') || ''
+
+    useEffect(() => {
+        if (!queryParams.toString()) {
+            setQueryParams({ page, perPage });
+        }
+    }, []);
+
     const [paginationData, setPaginationData] = useState<IPaginationData>({
         first: null,
         items: null,
@@ -39,7 +57,8 @@ const Advertisements = () => {
     const [open, setOpen] = useState(false)
     const openModal = () => setOpen(true)
     const handleClose = () => {
-        setOpen(false)
+        console.log('close modal')
+        setOpen(false);
         fetchFunc()
     }
 
@@ -60,24 +79,31 @@ const Advertisements = () => {
         'views'
     ]
 
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-    const [selectedIndex, setSelectedIndex] = useState(0)
-    const openSort = Boolean(anchorEl)
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+    const openSort = Boolean(anchorEl);
     const openSortMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorEl(event.currentTarget)
     }
 
     const handleMenuItemClick = (index: number) => {
-        setSelectedIndex(index)
-        setAnchorEl(null)
-    }
+        setQueryParams({ sort: options[index] });
+        setAnchorEl(null);
+    };
 
     const handleCloseSortMenu = () => {
         setAnchorEl(null)
     }
 
+    useEffect(() => {
+        fetchFunc()
+    }, [page, perPage, sortOption])
+
+
+
     const fetchFunc = async () => {
-        const response = await ApiService.getAdvertisements(page, rowsPerPage, options[selectedIndex])
+        console.log("change perpage", perPage)
+        const response = await ApiService.getAdvertisements(Number(page), Number(perPage), sortOption, controller.signal)
+        console.log(response)
         setAdv(response.data)
         const pagination = {
             first: response.first,
@@ -88,34 +114,30 @@ const Advertisements = () => {
             prev: response.prev
         }
         setPaginationData(pagination)
+        
     }
-
-    useEffect(() => {
-        fetchFunc()
-    }, [page, rowsPerPage, selectedIndex])
 
 
     //search
     useEffect(() => {
         if (adv.length > 0) {
-            let searched = adv.filter(el => el.name.toLowerCase().includes(searchInput.value))
+            const searched = adv.filter(el => el.name.toLowerCase().includes(searchInput.value))
             setFiltered(searched)
         }
     }, [searchInput.value.length, adv])
 
     const handleChangePage = (newPage: number) => {
-        setPage(newPage)
-    }
+        setQueryParams({ page: String(newPage) });
+    };
 
     const handleChangeRowsPerPage = (rowsPerPage: number) => {
-        setRowsPerPage(rowsPerPage)
-        setPage(1)
-    }
+        setQueryParams({ perPage: String(rowsPerPage), page: String(1) })
+    };
 
 
     return (
-        <div>
-            <div className='bg-slate-200 rounded-lg mb-5 grid grid-cols-3 justify-items-stretch gap-0'>
+        <div className='flex-1 flex flex-col overflow-hidden xl:px-20 pb-5'>
+            <div className='h-15 bg-slate-200 rounded-lg mb-5 grid grid-cols-3 justify-items-stretch gap-0'>
                 <div className='flex items-center ml-3 justify-between'>
                     <Input
                         {...searchInput}
@@ -144,7 +166,7 @@ const Advertisements = () => {
                     {options.map((option, index) => (
                         <MenuItem
                             key={option}
-                            selected={index === selectedIndex}
+                            selected={option === sortOption}
                             onClick={() => handleMenuItemClick( index )}
                         >
                             {option.length === 0 ? "-" : option}
@@ -152,9 +174,9 @@ const Advertisements = () => {
                     ))}
                 </Menu>
                 <div className="grid grid-cols-3 content-center">
-                    {options[selectedIndex] !== '-' ?
+                    {sortOption !== '' ?
                         <p className="justify-self-start flex items-center text-slate-600">
-                            {options[selectedIndex]}
+                            {sortOption}
                         </p> :
                         <div></div>
                     }
@@ -167,30 +189,32 @@ const Advertisements = () => {
                     </div>
                     <div></div>
                 </div>
-                {/* TODO: Закрывать после создания*/}
                 <Modal
                     open={open}
                     onClose={handleClose}
                 >
                     <CreateAdvertisement 
                         openSnackBar={handleSnackBarOpen}
+                        onClose={handleClose}
                     />
                 </Modal>
 
                 <Pagination
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
+                    page={Number(page)}
+                    rowsPerPage={Number(perPage)}
                     paginationData={paginationData}
                 />
     
             </div>
             {adv.length !== 0 && 
-                <List
-                    arrayOfAdvertisements={adv}
-                    arrayOfFiltered={filtered}
-                />
+                <div className='flex flex-1 overflow-y-auto justify-center bg-slate-50 rounded-xl'>
+                    <List
+                        arrayOfAdvertisements={adv}
+                        arrayOfFiltered={filtered}
+                    />
+                </div>
             }
             <Snackbar
                     anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
