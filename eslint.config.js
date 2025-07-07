@@ -1,37 +1,34 @@
-// Импорт необходимых модулей
-import globals from 'globals'; // Глобальные переменные (браузер, node и т.д.)
-import tsParser from '@typescript-eslint/parser'; // Парсер TypeScript
-import tsPlugin from '@typescript-eslint/eslint-plugin'; // Плагин TypeScript
-import reactPlugin from 'eslint-plugin-react'; // Плагин React
+import globals from 'globals'; 
+import tsParser from '@typescript-eslint/parser'; 
+import tsPlugin from '@typescript-eslint/eslint-plugin'; 
+import reactPlugin from 'eslint-plugin-react'; 
 import reactHooks from 'eslint-plugin-react-hooks'
 
 
 export default [
-  // Базовые настройки для всех файлов
   {
     ignores: [
-      '**/dist/**', // Игнорируем папку сборки
-      '**/coverage/**', // Игнорируем отчеты тестов
-      'vite.config.*', // Игнорируем конфиг Vite
+      '**/dist/**', 
+      '**/coverage/**',
+      'vite.config.*', 
       '*.config.js',
       '*.config.ts'
     ]
   },
 
-  // Настройки для JavaScript/TypeScript файлов
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
-      ecmaVersion: 'latest', // Поддержка современного JavaScript
-      sourceType: 'module', // Используем ES-модули
+      ecmaVersion: 'latest', 
+      sourceType: 'module', 
       globals: {
-        ...globals.browser, // Глобальные переменные браузера (window, document и т.д.)
-        ...globals.node // Глобальные переменные Node.js (если нужно)
+        ...globals.browser, 
+        ...globals.node 
       },
-      parser: tsParser, // Парсер TypeScript
+      parser: tsParser, 
       parserOptions: {
-        project: true, // Автоматически ищет tsconfig.json
-        tsconfigRootDir: import.meta.dirname // Корневая директория проекта
+        project: true, 
+        tsconfigRootDir: import.meta.dirname 
       }
     },
     plugins: {
@@ -41,41 +38,36 @@ export default [
 
     },
     rules: {
-      // Базовые правила
-      'no-unused-vars': 'off', // Отключаем встроенное правило (заменит TypeScript)
+      'no-unused-vars': 'off', 
       'semi': ['error', 'never'],
       'no-console': ['error', {
         allow: ['error', 'warn']
       }],
 
-      // TypeScript правила
-      '@typescript-eslint/no-unused-vars': 'warn', // Лучшая проверка неиспользуемых переменных
-      '@typescript-eslint/explicit-function-return-type': 'off', // Не требовать указания типов возврата
+      '@typescript-eslint/no-unused-vars': 'warn', 
+      '@typescript-eslint/explicit-function-return-type': 'off',
 
-      // React правила
-      'react/react-in-jsx-scope': 'off', // Не требовать импорт React в новых версиях
-      'react/jsx-uses-react': 'error', // Предотвращает пометку React как неиспользуемый
-      'react/jsx-uses-vars': 'error', // Обнаруживает неиспользуемые JSX-переменные
+      'react/react-in-jsx-scope': 'off', 
+      'react/jsx-uses-react': 'error', 
+      'react/jsx-uses-vars': 'error', 
 
-      // React Hooks правила
-      'react-hooks/rules-of-hooks': 'error', // Проверяет правила хуков
-      // 'react-hooks/exhaustive-deps': 'warn', // Проверяет зависимости эффектов
+      'react-hooks/rules-of-hooks': 'error',
+      // 'react-hooks/exhaustive-deps': 'warn', 
     
     },
     settings: {
       react: {
-        version: 'detect' // Автоматически определяет версию React
+        version: 'detect' 
       },
       
     }
   },
 
-  // Дополнительные настройки только для TypeScript файлов
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'warn', // Предупреждает об использовании any
-      '@typescript-eslint/consistent-type-imports': 'error' // Требует явного указания type/interface
+      '@typescript-eslint/no-explicit-any': 'warn', 
+      '@typescript-eslint/consistent-type-imports': 'error' 
     }
   }
 ];
