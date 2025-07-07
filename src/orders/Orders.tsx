@@ -21,7 +21,7 @@ const Orders = () => {
     const page = getParam('page') || '1';
     const perPage = getParam('perPage') || '10';
     const priceSorted = getParam('priceSorted') || '0'
-    const statusSorted = getParam('statusSorted') || '1'
+    const statusSorted = getParam('statusSorted') || '7'
 
     useEffect(() => {
         if (!queryParams.toString()) {
