@@ -25,7 +25,7 @@ const Card = (props: CardProps) => {
             }
             return text
         }
-        return null
+        return ''
     }
 
     return(
@@ -47,6 +47,7 @@ const Card = (props: CardProps) => {
                             </div>
                             :
                             <div className="flex h-full rounded-lg overflow-hidden items-center justify-center">          
+                                {/* TODO я че то тут хотел сделать с onError */}
                                 <img src={imageUrl} alt="Your Image" className="object-cover" onError={() => console.log("alt image ", name)}/>
                             </div>
                         }
@@ -57,7 +58,7 @@ const Card = (props: CardProps) => {
                                 <h1
                                     className="text-2xl text-slate-700 font-bold mb-2"
                                 >{ name }</h1>
-                                <p>{ collapseText( description ) }</p>
+                                <p data-testid="card-description">{ collapseText( description ) }</p>
                             </div>
                             <div className="flex flex-row justify-between">
                                 <div className="flex flex-row">
