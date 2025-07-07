@@ -86,7 +86,6 @@ const Advertisements = () => {
     }
 
     const handleMenuItemClick = (index: number) => {
-        if(!options[index]) return
         setQueryParams({ sort: options[index] })
         setAnchorEl(null)
     }
