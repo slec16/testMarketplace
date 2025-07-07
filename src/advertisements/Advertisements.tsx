@@ -8,17 +8,17 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import InputAdornment from '@mui/material/InputAdornment'
 import useInput from '../hooks/useInput'
 import CreateAdvertisement from './modalCreateAdvertisement'
-import Tooltip from '@mui/material/Tooltip';
-import SortIcon from '@mui/icons-material/Sort';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import Pagination from '../components/Pagination';
-import { type IAdvertisement } from '../interfaces';
-import { type IPaginationData } from '../interfaces';
-import ApiService from '../services/api-service';
-import { useAbortController } from '../hooks/useAbortController';
+import Tooltip from '@mui/material/Tooltip'
+import SortIcon from '@mui/icons-material/Sort'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Snackbar from '@mui/material/Snackbar'
+import Alert from '@mui/material/Alert'
+import Pagination from '../components/Pagination'
+import { type IAdvertisement } from '../interfaces'
+import { type IPaginationData } from '../interfaces'
+import ApiService from '../services/api-service'
+import { useAbortController } from '../hooks/useAbortController'
 import { useQueryParams } from '../hooks/useQueryParams'
 
 
@@ -26,22 +26,22 @@ import { useQueryParams } from '../hooks/useQueryParams'
 
 const Advertisements = () => {
 
-    const { queryParams, setQueryParams, getParam } = useQueryParams();
+    const { queryParams, setQueryParams, getParam } = useQueryParams()
 
     const [adv, setAdv] = useState<IAdvertisement[]>([])
     const [filtered, setFiltered] = useState<IAdvertisement[]>([])
-    const { createAbortController } = useAbortController();
-    const controller = createAbortController();
+    const { createAbortController } = useAbortController()
+    const controller = createAbortController()
 
-    const page = getParam('page') || '1';
-    const perPage = getParam('perPage') || '10';
+    const page = getParam('page') || '1'
+    const perPage = getParam('perPage') || '10'
     const sortOption = getParam('sort') || ''
 
     useEffect(() => {
         if (!queryParams.toString()) {
-            setQueryParams({ page, perPage });
+            setQueryParams({ page, perPage })
         }
-    }, []);
+    }, [])
 
     const [paginationData, setPaginationData] = useState<IPaginationData>({
         first: null,
@@ -58,7 +58,7 @@ const Advertisements = () => {
     const openModal = () => setOpen(true)
     const handleClose = () => {
         console.log('close modal')
-        setOpen(false);
+        setOpen(false)
         fetchFunc()
     }
 
@@ -79,16 +79,17 @@ const Advertisements = () => {
         'views'
     ]
 
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-    const openSort = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+    const openSort = Boolean(anchorEl)
     const openSortMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorEl(event.currentTarget)
     }
 
     const handleMenuItemClick = (index: number) => {
-        setQueryParams({ sort: options[index] });
-        setAnchorEl(null);
-    };
+        if(!options[index]) return
+        setQueryParams({ sort: options[index] })
+        setAnchorEl(null)
+    }
 
     const handleCloseSortMenu = () => {
         setAnchorEl(null)
@@ -127,12 +128,12 @@ const Advertisements = () => {
     }, [searchInput.value.length, adv])
 
     const handleChangePage = (newPage: number) => {
-        setQueryParams({ page: String(newPage) });
-    };
+        setQueryParams({ page: String(newPage) })
+    }
 
     const handleChangeRowsPerPage = (rowsPerPage: number) => {
         setQueryParams({ perPage: String(rowsPerPage), page: String(1) })
-    };
+    }
 
 
     return (

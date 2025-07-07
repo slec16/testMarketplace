@@ -1,10 +1,10 @@
 import {
   Link,
-} from 'react-router';
-import HideImageIcon from '@mui/icons-material/HideImage';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { type IAdvertisement } from '../interfaces';
+} from 'react-router'
+import HideImageIcon from '@mui/icons-material/HideImage'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import { type IAdvertisement } from '../interfaces'
 
 type CardProps = {
     data: IAdvertisement;

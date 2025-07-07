@@ -8,9 +8,9 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import Modal from '@mui/material/Modal'
 import CreateAdvertisement from './modalCreateAdvertisement'
-import ApiService from '../services/api-service';
-import { useAbortController } from '../hooks/useAbortController';
-import { type IAdvertisement } from '../interfaces';
+import ApiService from '../services/api-service'
+import { useAbortController } from '../hooks/useAbortController'
+import { type IAdvertisement } from '../interfaces'
 
 
 const AdvertisementPage = () => {

@@ -46,7 +46,7 @@ function App() {
             <TabsRouter></TabsRouter>
             <div className='flex-1 flex flex-col overflow-hidden '>
                 <Routes>
-                    <Route path='/' element={<div></div>}/>
+                    <Route path='/' element={<div>Мой Профиль</div>}/>
                     <Route path='/advertisements' element={<Advertisements />} />
                     <Route path='/orders' element={<Orders />}/>
                     <Route path='/advertisements/:id' element={<AdvertisementPage />} />

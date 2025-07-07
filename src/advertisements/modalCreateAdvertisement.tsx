@@ -1,14 +1,14 @@
-import { Input } from '@mui/material';
-import Button from '@mui/material/Button';
-import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
-import InputAdornment from '@mui/material/InputAdornment';
-import LinkIcon from '@mui/icons-material/Link';
-import useInput from '../hooks/useInput';
-import DescriptionIcon from '@mui/icons-material/Description';
-import TitleIcon from '@mui/icons-material/Title';
-import { type IAdvertisement } from '../interfaces';
-import ApiService from '../services/api-service';
-import { useAbortController } from '../hooks/useAbortController';
+import { Input } from '@mui/material'
+import Button from '@mui/material/Button'
+import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble'
+import InputAdornment from '@mui/material/InputAdornment'
+import LinkIcon from '@mui/icons-material/Link'
+import useInput from '../hooks/useInput'
+import DescriptionIcon from '@mui/icons-material/Description'
+import TitleIcon from '@mui/icons-material/Title'
+import { type IAdvertisement } from '../interfaces'
+import ApiService from '../services/api-service'
+import { useAbortController } from '../hooks/useAbortController'
 
 type CreateAdvertisementProps = {
     openSnackBar: (state: boolean) => void

@@ -19,8 +19,8 @@ export class HttpService {
             return this._handleResponse(response)
         } catch (err: any) {
             if (err.name == 'AbortError') {
-                console.log('Fetch users request was aborted');
-                return;
+                console.log('Fetch users request was aborted')
+                return
             }
         }
         
@@ -29,7 +29,7 @@ export class HttpService {
     protected async post(path: string, body: any, signal?: AbortSignal) {
 
         try{
-            const stringifiedData = JSON.stringify(body);
+            const stringifiedData = JSON.stringify(body)
     
             const response = await fetch(`${this.baseApi}/${path}`, {
                 method: 'POST',
@@ -38,13 +38,13 @@ export class HttpService {
                     'Content-Type': 'application/json',
                 },
                 signal
-            });
+            })
 
             return this._handleResponse(response)
         } catch (err: any) {
             if (err.name == 'AbortError') {
-                console.log('Fetch users request was aborted');
-                return;
+                console.log('Fetch users request was aborted')
+                return
             }
         }
 
@@ -64,8 +64,8 @@ export class HttpService {
             return this._handleResponse(response)
         } catch (err: any) {
             if (err.name == 'AbortError') {
-                console.log('Fetch users request was aborted');
-                return;
+                console.log('Fetch users request was aborted')
+                return
             }
         } 
 
@@ -74,7 +74,7 @@ export class HttpService {
     protected async patch(path: string, body: any, signal?: AbortSignal) {
 
         try{
-            const stringifiedData = JSON.stringify(body);
+            const stringifiedData = JSON.stringify(body)
     
             const response = await fetch(`${this.baseApi}/${path}`, {
                 method: 'PATCH',
@@ -83,13 +83,13 @@ export class HttpService {
                     'Content-Type': 'application/json',
                 },
                 signal
-            });
+            })
 
             return this._handleResponse(response)
         } catch (err: any) {
             if (err.name == 'AbortError') {
-                console.log('Fetch users request was aborted');
-                return;
+                console.log('Fetch users request was aborted')
+                return
             }
         }
 

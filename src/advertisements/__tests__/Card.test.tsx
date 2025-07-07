@@ -7,7 +7,7 @@ describe('Card Component', () => {
   const mockAd: IAdvertisement = {
     id: '1',
     name: 'Test Product',
-    description: 'This is a long description that should be truncated to 50 characters',
+    description: 'This is a long description that should be truncated to 50 characters. This is a long description that should be truncated to 50 characters. ',
     price: 1000,
     views: 150,
     likes: 25,
@@ -37,7 +37,7 @@ describe('Card Component', () => {
     )
 
     // Проверяем обрезание текста
-    const truncatedText = mockAd.description.slice(0, 50) + '...'
+    const truncatedText = mockAd.description.slice(0, 100) + '...'
     expect(screen.getByText(truncatedText)).toBeInTheDocument()
   })
 

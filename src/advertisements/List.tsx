@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
+ 
 import Card from "./Card"
 import { type IAdvertisement } from "../interfaces"
 

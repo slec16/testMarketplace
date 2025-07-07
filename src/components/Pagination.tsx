@@ -20,9 +20,9 @@ const Pagination = (props: PaginationProps) => {
     
     const { items, next, prev } = paginationData
 
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
-    const openSort = Boolean(anchorEl);
+    const openSort = Boolean(anchorEl)
  
     let options = [ 5, 10, 15, 25, 50 ]
 
@@ -93,13 +93,15 @@ const Pagination = (props: PaginationProps) => {
 
             <p>{startRange}-{endRange} из {items}</p>
             <div>    
-                <IconButton 
+                <IconButton
+                    aria-label="previous page" 
                     onClick={ prevPage }
                     disabled={prev == null}
                 >
                     <ArrowBackIcon color='primary' />
                 </IconButton>
                 <IconButton 
+                    aria-label="next page"
                     onClick={ nextPage }
                     disabled={next == null}
                 >

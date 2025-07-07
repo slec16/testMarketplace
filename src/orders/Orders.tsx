@@ -3,14 +3,14 @@ import Pagination from '../components/Pagination'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import OrdersList from './OrdersList'
-import type { IOrders, IPaginationData } from '../interfaces';
-import ApiService from '../services/api-service';
-import { useAbortController } from '../hooks/useAbortController';
-import { useQueryParams } from '../hooks/useQueryParams';
+import type { IOrders, IPaginationData } from '../interfaces'
+import ApiService from '../services/api-service'
+import { useAbortController } from '../hooks/useAbortController'
+import { useQueryParams } from '../hooks/useQueryParams'
 
 const Orders = () => {
 
-    const { queryParams, setQueryParams, getParam } = useQueryParams();
+    const { queryParams, setQueryParams, getParam } = useQueryParams()
 
     const [orders, setOrders] = useState<IOrders[]>([])
     const { createAbortController } = useAbortController()
@@ -18,16 +18,16 @@ const Orders = () => {
     // const [rowsPerPage, setRowsPerPage] = useState(10);
     // const [page, setPage] = useState(1);
 
-    const page = getParam('page') || '1';
-    const perPage = getParam('perPage') || '10';
+    const page = getParam('page') || '1'
+    const perPage = getParam('perPage') || '10'
     const priceSorted = getParam('priceSorted') || '0'
     const statusSorted = getParam('statusSorted') || '7'
 
     useEffect(() => {
         if (!queryParams.toString()) {
-            setQueryParams({ page, perPage });
+            setQueryParams({ page, perPage })
         }
-    }, []);
+    }, [])
 
     const [paginationData, setPaginationData] = useState<IPaginationData>({
         first: null,
@@ -41,14 +41,14 @@ const Orders = () => {
 
 
     const handleChangePage = (newPage: number) => {
-        setQueryParams({ page: String(newPage) });
+        setQueryParams({ page: String(newPage) })
         // setPage(newPage);
-    };
+    }
 
     const handleChangeRowsPerPage = (rowsPerPage: number) => {
         setQueryParams({ perPage: String(rowsPerPage), page: String(1) })
         // setRowsPerPage(rowsPerPage)
-    };
+    }
 
 
     let priceSort = [
@@ -56,7 +56,7 @@ const Orders = () => {
         "По возрастанию",
     ]
 
-    const [anchorElPrice, setAnchorElPrice] = useState<HTMLButtonElement | null>(null);
+    const [anchorElPrice, setAnchorElPrice] = useState<HTMLButtonElement | null>(null)
     // const [selectedPriceSort, setSelectedPriceSort] = useState(0)
     const openPrice = Boolean(anchorElPrice)
 
@@ -72,7 +72,7 @@ const Orders = () => {
     const handleMenuPriceClick = (status: number) => {
         // setSelectedPriceSort(index);
         setQueryParams({ priceSorted: String(status) })
-        setAnchorElPrice(null);
+        setAnchorElPrice(null)
     }
 
     const orderStatus = [
@@ -86,9 +86,9 @@ const Orders = () => {
         "Все"
     ]
 
-    const [anchorElStatus, setAnchorElStatus] = useState<HTMLButtonElement | null>(null);
+    const [anchorElStatus, setAnchorElStatus] = useState<HTMLButtonElement | null>(null)
     // const [selectedStatus, setSelectedStatus] = useState(7);
-    const openStatus = Boolean(anchorElStatus);
+    const openStatus = Boolean(anchorElStatus)
     const openSortMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorElStatus(event.currentTarget)
     }
@@ -101,8 +101,8 @@ const Orders = () => {
     const handleMenuStatusClick = (status: number) => {
         console.log(status)
         // setSelectedStatus(index);
-        setQueryParams({ statusSorted: String(status) });
-        setAnchorElStatus(null);
+        setQueryParams({ statusSorted: String(status) })
+        setAnchorElStatus(null)
     }
 
 //http://localhost:3000/orders?_page=1&_per_page=5&_sort=-total&status=0
