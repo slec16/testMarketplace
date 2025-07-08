@@ -132,13 +132,15 @@ const Orders = () => {
 
 
     return (
-        <div className='flex-1 flex flex-col overflow-hidden px-20 pb-5'>
-            <div className="h-15 bg-slate-200 rounded-lg mb-5 flex flex-row items-center px-3">
-                <p className='mr-1'>Статус:</p>
-                <button 
-                    className='underline mr-3 text-sky-400'
-                    onClick={openSortMenu}
-                >{orderStatus[Number(statusSorted)]}</button>
+        <div className='flex-1 flex flex-col overflow-hidden sm:px-20 pb-5'>
+            <div className="h-fit md:h-15 bg-slate-200 rounded-lg mb-5 flex flex-row flex-wrap items-center px-3 py-2">
+                <div className='flex w-1/2 md:w-fit'>
+                    <p className='mr-1'>Статус:</p>
+                    <button 
+                        className='underline mr-3 text-sky-400'
+                        onClick={openSortMenu}
+                    >{orderStatus[Number(statusSorted)]}</button>
+                </div>
                 <Menu
                     id="basic-menu"
                     anchorEl={anchorElStatus}
@@ -158,13 +160,15 @@ const Orders = () => {
                         </MenuItem>
                     ))}
                 </Menu>
-                <p className='mr-1 '>Цена:</p>
-                <button
-                    className='underline text-sky-400'
-                    onClick={openPriceMenu}
-                >
-                    {priceSort[Number(priceSorted)]}
-                </button>
+                <div className='flex w-1/2 md:w-fit'>
+                    <p className='mr-1 '>Цена:</p>
+                    <button
+                        className='underline text-sky-400'
+                        onClick={openPriceMenu}
+                    >
+                        {priceSort[Number(priceSorted)]}
+                    </button>
+                </div>
                 <Menu
                     id="basic-menu"
                     anchorEl={anchorElPrice}
@@ -184,7 +188,7 @@ const Orders = () => {
                         </MenuItem>
                     ))}
                 </Menu>
-                <div className="ml-auto mr-0 w-1/3">
+                <div className="md:ml-auto md:mr-0 md:w-1/3 w-full">
                     <Pagination
                         onPageChange={handleChangePage}
                         onRowsPerPageChange={handleChangeRowsPerPage}
@@ -205,7 +209,7 @@ const Orders = () => {
                     </div>
                 </div> 
                 : 
-                <div className='flex flex-1 overflow-y-auto justify-center bg-slate-50 rounded-xl'>
+                <div className='flex flex-1 overflow-y-auto justify-center sm:bg-slate-50 rounded-xl'>
                     <OrdersList 
                         orders={orders}
                     />                

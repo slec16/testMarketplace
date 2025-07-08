@@ -77,21 +77,21 @@ const AdvertisementPage = () => {
                     <p className="items-center text-2xl text-red-400">Объявление удалено</p>
                 }
                 <div 
-                    className={`rounded-md flex flex-row p-3 ${isDeleted ? "opacity-50" : "" }`}
+                    className={`rounded-md h-full sm:h-fit flex flex-col sm:flex-row p-3 ${isDeleted ? "opacity-50" : "" }`}
                 >
                     { !product.imageUrl ? 
-                        <div className='flex w-1/3 h-60 mr-2 border border-blue-200 rounded-lg items-center justify-center'>
+                        <div className='flex w-full sm:w-1/3 h-60 mb-2 sm:mr-2 border border-blue-200 rounded-lg items-center justify-center'>
                             <HideImageIcon 
                                 fontSize='large'
                                 color='primary'
                             />
                         </div>
                         :
-                        <div className="w-1/3 mr-2 border border-blue-200 rounded-lg overflow-hidden">          
+                        <div className="flex-none w-full h-fit sm:w-1/4 mb-2 sm:mr-2 border border-blue-200 rounded-lg overflow-hidden">          
                             <img src={product.imageUrl} alt="Your Image" className="object-contain" />
                         </div>
                     }
-                    <div className="flex flex-col px-3 justify-between w-full">
+                    <div className="flex flex-col px-3 justify-between w-full h-full">
                         <div>
                             <div className="flex flex-row justify-between">
                                 <h1

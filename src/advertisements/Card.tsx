@@ -33,7 +33,7 @@ const Card = (props: CardProps) => {
             <div
                 className={
                     "first:mt-3 last:mb-3 border border-slate-100  rounded-2xl bg-slate-200 hover:bg-slate-300 py-2 px-3"+
-                    ` ${props.fromOrders ? 'w-90 h-120' : 'w-100 h-130'} `
+                    ` ${props.fromOrders ? 'w-80 h-110' : 'w-80 h-110 sm:w-100 sm:h-130'} `
                 }
             >
                 <div className='h-full w-full flex flex-col'>

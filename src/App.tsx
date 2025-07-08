@@ -11,12 +11,12 @@ function App() {
 
     return (
  
-        <div className='flex flex-col h-screen overflow-hidden xl:px-15'>
+        <div className='flex flex-col h-screen sm:overflow-hidden px-2 sm:px-15'>
             <Header></Header>
             <TabsRouter></TabsRouter>
             <div className='flex-1 flex flex-col overflow-hidden '>
                 <Routes>
-                    <Route path='/' element={<div>Мой Профиль</div>}/>
+                    <Route path='/' element={<div className='text-2xl text-sky-600'>Мой Профиль</div>}/>
                     <Route path='/advertisements' element={<Advertisements />} />
                     <Route path='/orders' element={<Orders />}/>
                     <Route path='/advertisements/:id' element={<AdvertisementPage />} />

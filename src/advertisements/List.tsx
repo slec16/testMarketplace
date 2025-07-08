@@ -33,7 +33,7 @@ const List = (props: ListProps) => {
     })
     
     return(
-        <div className="flex flex-wrap justify-around w-4/5 gap-y-2 h-full">
+        <div className="flex flex-wrap justify-around sm:gap-x-5 gap-y-2 h-full">
             {listOfAdv}
         </div>
     )

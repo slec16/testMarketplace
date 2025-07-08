@@ -4,7 +4,6 @@ import Tab from '@mui/material/Tab'
 import {
     Link,
     matchPath,
-    useParams,
     useLocation,
 } from 'react-router'
 import ApiService from '../services/api-service'
@@ -53,7 +52,7 @@ const MyTabs = () => {
     }, [adId])
 
     return (
-        <Tabs value={currentTab}>
+        <Tabs variant="scrollable" value={currentTab}>
             <Tab label="Профиль" value="/" to="/" component={Link} />
             <Tab label="Заказы" value="/orders" to="/orders" component={Link} />
             <Tab label="Объявления" value="/advertisements" to="/advertisements" component={Link} />

@@ -138,8 +138,8 @@ const Advertisements = () => {
     }
 
     return (
-        <div className='flex-1 flex flex-col overflow-hidden xl:px-20 pb-5'>
-            <div className='h-15 bg-slate-200 rounded-lg mb-5 grid grid-cols-3 justify-items-stretch gap-0'>
+        <div className='flex-1 flex flex-col overflow-hidden sm:px-20 pb-5'>
+            <div className='h-fit md:h-15 bg-slate-200 rounded-lg mb-5 grid grid-cols-1 grid-rows-3 md:grid-rows-1 md:grid-cols-3 justify-items-stretch gap-0 px-3 py-2'>
                 <div className='flex items-center ml-3 justify-between'>
                     <Input
                         {...searchInput}
@@ -221,7 +221,7 @@ const Advertisements = () => {
                     </div>
                 </div> 
                 : 
-                <div className='flex flex-1 overflow-y-auto justify-center bg-slate-50 rounded-xl'>
+                <div className='flex flex-1 overflow-y-auto justify-center sm:bg-slate-50 sm:rounded-xl'>
                     <List
                         arrayOfAdvertisements={adv}
                         arrayOfFiltered={filtered}
