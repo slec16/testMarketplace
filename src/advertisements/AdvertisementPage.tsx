@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import Modal from '@mui/material/Modal'
+import CachedIcon from '@mui/icons-material/Cached';
 import CreateAdvertisement from './modalCreateAdvertisement'
 import ApiService from '../services/api-service'
 import { useAbortController } from '../hooks/useAbortController'
@@ -20,6 +21,7 @@ const AdvertisementPage = () => {
     const controller = createAbortController()
     const [isDeleted, setIsDeleted] = useState(false)
     const [openEditModal, setOpenEditModal] = useState(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const handleClosaEditModal = () => {
         setOpenEditModal(false)
         fetchFunc()
@@ -29,9 +31,10 @@ const AdvertisementPage = () => {
 
     const fetchFunc = async () => {
         if( id ) {
+            setIsLoading(true)
             const response = await ApiService.getAdvertisementsById(id, controller.signal)
-            console.log(response)
             setProduct(response)
+            setIsLoading(false)
         }
     }
 
@@ -45,11 +48,26 @@ const AdvertisementPage = () => {
 
     const deleteAdvertisement = async () => {
         if( id ) {
-            console.log("delete")
+            setIsLoading(true)
             const response = await ApiService.deleteAdvertisementsById(id, controller.signal)
             console.log(response)
             response && setIsDeleted(true)
+            setIsLoading(false)
         }
+    }
+
+    if (isLoading) {
+        return (
+            <div className='w-full h-full flex justify-center items-center'>
+                <div className='text-7xl'>
+                    <CachedIcon 
+                        color='primary'
+                        className='animate-spin'
+                        fontSize='inherit'
+                    />
+                </div>
+            </div>
+        );
     }
 
     return (

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Pagination from '../components/Pagination'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import CachedIcon from '@mui/icons-material/Cached';
 import OrdersList from './OrdersList'
 import type { IOrders, IPaginationData } from '../interfaces'
 import ApiService from '../services/api-service'
@@ -15,8 +16,8 @@ const Orders = () => {
     const [orders, setOrders] = useState<IOrders[]>([])
     const { createAbortController } = useAbortController()
     const controller = createAbortController()
-    // const [rowsPerPage, setRowsPerPage] = useState(10);
-    // const [page, setPage] = useState(1);
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const page = getParam('page') || '1'
     const perPage = getParam('perPage') || '10'
@@ -107,6 +108,7 @@ const Orders = () => {
 
 //http://localhost:3000/orders?_page=1&_per_page=5&_sort=-total&status=0
     const fetchFunc = async () => {
+        setIsLoading(true)
         const response = await ApiService.getOrders(Number(page), Number(perPage), Number(priceSorted), Number(statusSorted), controller.signal) 
         console.log(response)
         setOrders(response.data)
@@ -119,6 +121,7 @@ const Orders = () => {
             prev: response.prev
         }
         setPaginationData(pagination)
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -191,7 +194,17 @@ const Orders = () => {
                     />
                 </div>
             </div>
-            {orders.length !== 0 &&
+            {isLoading ? 
+                <div className='w-full h-full flex justify-center items-center'>
+                    <div className='text-7xl'>
+                        <CachedIcon 
+                            color='primary'
+                            className='animate-spin'
+                            fontSize='inherit'
+                        />
+                    </div>
+                </div> 
+                : 
                 <div className='flex flex-1 overflow-y-auto justify-center bg-slate-50 rounded-xl'>
                     <OrdersList 
                         orders={orders}

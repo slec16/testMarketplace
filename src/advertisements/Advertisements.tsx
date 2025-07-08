@@ -14,6 +14,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
+import CachedIcon from '@mui/icons-material/Cached';
 import Pagination from '../components/Pagination'
 import { type IAdvertisement } from '../interfaces'
 import { type IPaginationData } from '../interfaces'
@@ -32,6 +33,8 @@ const Advertisements = () => {
     const [filtered, setFiltered] = useState<IAdvertisement[]>([])
     const { createAbortController } = useAbortController()
     const controller = createAbortController()
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const page = getParam('page') || '1'
     const perPage = getParam('perPage') || '10'
@@ -101,7 +104,7 @@ const Advertisements = () => {
 
 
     const fetchFunc = async () => {
-        console.log("change perpage", perPage)
+        setIsLoading(true)
         const response = await ApiService.getAdvertisements(Number(page), Number(perPage), sortOption, controller.signal)
         console.log(response)
         setAdv(response.data)
@@ -114,7 +117,7 @@ const Advertisements = () => {
             prev: response.prev
         }
         setPaginationData(pagination)
-        
+        setIsLoading(false)
     }
 
 
@@ -133,7 +136,6 @@ const Advertisements = () => {
     const handleChangeRowsPerPage = (rowsPerPage: number) => {
         setQueryParams({ perPage: String(rowsPerPage), page: String(1) })
     }
-
 
     return (
         <div className='flex-1 flex flex-col overflow-hidden xl:px-20 pb-5'>
@@ -208,7 +210,17 @@ const Advertisements = () => {
                 />
     
             </div>
-            {adv.length !== 0 && 
+            {isLoading ? 
+                <div className='w-full h-full flex justify-center items-center'>
+                    <div className='text-7xl'>
+                        <CachedIcon 
+                            color='primary'
+                            className='animate-spin'
+                            fontSize='inherit'
+                        />
+                    </div>
+                </div> 
+                : 
                 <div className='flex flex-1 overflow-y-auto justify-center bg-slate-50 rounded-xl'>
                     <List
                         arrayOfAdvertisements={adv}
