@@ -9,38 +9,8 @@ import AdvertisementPage from "./advertisements/AdvertisementPage"
 
 function App() {
 
-
-
-
     return (
-        // <div className=''>
-        //     <Wrapper>
-
-        //         <Header></Header>
-                // <TabsRouter></TabsRouter>
-
-                // <Routes>
-                //     <Route path='/' element={<div></div>}/>
-                //     <Route path='/advertisements' element={<Advertisements />} />
-                //     <Route path='/orders' element={<Orders />}/>
-                //     <Route path='/advertisements/:id' element={<AdvertisementPage />} />
-                // </Routes>
-                
-        //         {/* footer */}
-        //         <div className='w-full h-7'>footer</div>
-        //     </Wrapper>
-
-        // </div>
-        // <Layout>
-        //     <TabsRouter></TabsRouter>
-
-        //     <Routes>
-        //         <Route path='/' element={<div></div>}/>
-        //         <Route path='/advertisements' element={<Advertisements />} />
-        //         <Route path='/orders' element={<Orders />}/>
-        //         <Route path='/advertisements/:id' element={<AdvertisementPage />} />
-        //     </Routes>
-        // </Layout>
+ 
         <div className='flex flex-col h-screen overflow-hidden xl:px-15'>
             <Header></Header>
             <TabsRouter></TabsRouter>
