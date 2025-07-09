@@ -33,7 +33,7 @@ const OrdersCard = (props: OrdersCardProps) => {
     ])
 
 
-    const dataStyle = "text-sm md:text-xl font-medium text-gray-700"
+    const dataStyle = "text-sm sm:text-xl font-medium text-gray-700"
 
 
 
@@ -41,22 +41,22 @@ const OrdersCard = (props: OrdersCardProps) => {
         <>
             <div
                 onClick={openOrderModal}
-                className="first:mt-3 last:mb-3 rounded-md flex flex-col md:flex-row p-3 bg-slate-50 hover:bg-slate-200 border border-blue-200"
+                className="first:mt-3 last:mb-3 rounded-md flex flex-col sm:flex-row p-3 bg-slate-50 hover:bg-slate-200 border border-blue-200"
             > 
-                <div className="rounded-lg bg-white md:bg-slate-100 w-full md:w-96 md:h-72 flex flex-row justify-around md:justify-between flex-wrap gap-y-5 p-2">
+                <div className="rounded-lg bg-white sm:bg-slate-100 w-full sm:w-96 sm:h-72 flex flex-row justify-around sm:justify-between flex-wrap gap-y-5 p-2">
                     {items.map((item, index) => {
                         if(index < 3) {   
                             return(
                                 <div className=''>
                                     { item.imageUrl.length == 0 ? 
-                                        <div className='flex w-30 h-30 md:w-32 md:h-32 border border-blue-200 rounded-lg items-center justify-center'>
+                                        <div className='flex w-30 h-30 sm:w-32 sm:h-32 border border-blue-200 rounded-lg items-center justify-center'>
                                             <HideImageIcon 
                                                 fontSize='large'
                                                 color='primary'
                                             />
                                         </div>
                                         :
-                                        <div className="w-30 h-30 md:w-32 md:h-32 rounded-lg overflow-hidden">          
+                                        <div className="w-30 h-30 sm:w-32 sm:h-32 rounded-lg overflow-hidden">          
                                             <img src={item.imageUrl} alt="Your Image" className="object-contain" />
                                         </div>
                                     }
@@ -65,7 +65,7 @@ const OrdersCard = (props: OrdersCardProps) => {
                         } 
                     })}
                     {items.length >= 4 && 
-                        <div className='flex w-30 h-30 md:w-32 md:h-32 border border-blue-200 rounded-lg items-center justify-center'>
+                        <div className='flex w-30 h-30 sm:w-32 sm:h-32 border border-blue-200 rounded-lg items-center justify-center'>
                             <p className='text-2xl text-blue-400'>+{items.length - 3}</p>
                         </div>
                     }

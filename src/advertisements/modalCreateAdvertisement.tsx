@@ -74,9 +74,9 @@ const CreateAdvertisement = (props: CreateAdvertisementProps) => {
     return (
         <>
             { !editModal ? 
-                <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-full md:w-150 rounded-lg bg-neutral-50">
+                <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-full sm:w-150 rounded-lg bg-neutral-50">
                     <h2 className='py-3 border-b border-slate-400 text-center text-2xl text-blue-800'>Новое объявление</h2>
-                    <div className='p-5 md:grid flex flex-col md:grid-cols-2 md:grid-row-4'>
+                    <div className='p-5 sm:grid flex flex-col sm:grid-cols-2 sm:grid-row-4'>
                         <p className="text-slate-600">URL изображения</p>
                         <Input 
                             {...urlInput}
@@ -122,7 +122,7 @@ const CreateAdvertisement = (props: CreateAdvertisementProps) => {
                     </div>
                 </div>
                 :
-                <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-full md:w-150 rounded-lg bg-neutral-50">
+                <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-full sm:w-150 rounded-lg bg-neutral-50">
                     <h2 className='py-3 border-b border-slate-400 text-center text-2xl text-blue-800'>Новое объявление</h2>
                     <div className='p-5 grid grid-cols-2 grid-row-4'>
                         <p className="text-slate-600">URL изображения</p>

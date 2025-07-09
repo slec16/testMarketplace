@@ -133,8 +133,8 @@ const Orders = () => {
 
     return (
         <div className='flex-1 flex flex-col overflow-hidden sm:px-20 pb-5'>
-            <div className="h-fit md:h-15 bg-slate-200 rounded-lg mb-5 flex flex-row flex-wrap items-center px-3 py-2">
-                <div className='flex w-1/2 md:w-fit'>
+            <div className="h-fit sm:h-15 bg-slate-200 rounded-lg mb-5 flex flex-row flex-wrap items-center px-3 py-2">
+                <div className='flex w-1/2 sm:w-fit'>
                     <p className='mr-1'>Статус:</p>
                     <button 
                         className='underline mr-3 text-sky-400'
@@ -160,7 +160,7 @@ const Orders = () => {
                         </MenuItem>
                     ))}
                 </Menu>
-                <div className='flex w-1/2 md:w-fit'>
+                <div className='flex w-1/2 sm:w-fit'>
                     <p className='mr-1 '>Цена:</p>
                     <button
                         className='underline text-sky-400'
@@ -188,7 +188,7 @@ const Orders = () => {
                         </MenuItem>
                     ))}
                 </Menu>
-                <div className="md:ml-auto md:mr-0 md:w-1/3 w-full">
+                <div className="sm:ml-auto sm:mr-0 sm:w-1/3 w-full">
                     <Pagination
                         onPageChange={handleChangePage}
                         onRowsPerPageChange={handleChangeRowsPerPage}
